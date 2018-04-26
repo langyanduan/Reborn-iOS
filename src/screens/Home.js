@@ -15,7 +15,23 @@ export default class Home extends React.Component {
     super(props);
 
     this.state = {
-      data: [1, 2, 3]
+      data: [
+        "yourserver.com:8031",
+        "yourserver.com:11111",
+        "yourserver.com:12345",
+        "yourserver.com:8031",
+        "yourserver.com:8031",
+        "yourserver.com:8031",
+        "yourserver.com:8031",
+        "yourserver.com:11111",
+        "yourserver.com:12345",
+        "yourserver.com:11111",
+        "yourserver.com:12345",
+        "yourserver.com:11111",
+        "yourserver.com:12345",
+        "yourserver.com:11111",
+        "yourserver.com:12345",
+      ]
     }
   }
 
@@ -28,7 +44,6 @@ export default class Home extends React.Component {
             <View style={[headerStyles.cellSeparator, headerStyles.cellContent, {justifyContent: 'space-between'}]}>
               <Text>Not Connect</Text>
               <Switch style={{marginRight: 8}} />
-              {/* <Icon name="ios-add" style={headerStyles.cellIcon} /> */}
             </View>
           </View>
           <View style={headerStyles.cellRow}>
@@ -42,7 +57,7 @@ export default class Home extends React.Component {
           <View style={headerStyles.cellRow}>
             <Icon name="ios-add" style={headerStyles.cellIcon} />
             <View style={headerStyles.cellContent}>
-              <Text>Not Connect</Text>
+              <Text>PING test</Text>
             </View>
           </View>
         </View>
@@ -63,10 +78,10 @@ export default class Home extends React.Component {
     );
   }
 
-  renderItem() {
+  renderItem({item, index}) {
     return (
-      <TouchableOpacity style={styles.cellRow}>
-        <Text>aaa</Text>
+      <TouchableOpacity style={itemStyles.cellRow}>
+        <Text>{item}</Text>
         <View style={{position: 'absolute', left: 10, bottom: 0, right: 0, height: StyleSheet.hairlineWidth, backgroundColor: 'black'}} />
       </TouchableOpacity>
     );
@@ -75,28 +90,19 @@ export default class Home extends React.Component {
   render() {
     return (
       <FlatList 
+        contentContainerStyle={{paddingTop: 30, paddingBottom: 30}}
         ListHeaderComponent={this.renderHeader}
         ListFooterComponent={this.renderFooter}
         data={this.state.data}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={this.renderItem}
       />
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-  },
-  cellRow: {
-    height: 40,
-    backgroundColor: 'white',
-    paddingLeft: 10,
-  }
-});
-
 const headerStyles = StyleSheet.create({
   container: {
-    paddingTop: 30,
     borderColor: 'black',
     borderBottomWidth: StyleSheet.hairlineWidth, 
   },
@@ -126,6 +132,7 @@ const headerStyles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth, 
   },
   title: {
+    paddingHorizontal: 8,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -134,13 +141,24 @@ const headerStyles = StyleSheet.create({
   },
 });
 
+const itemStyles = StyleSheet.create({
+  container: {
+  },
+  cellRow: {
+    height: 40,
+    backgroundColor: 'white',
+    paddingLeft: 16,
+    justifyContent: 'center',
+  }
+});
+
 const footerStyles = StyleSheet.create({
   container: {
     borderColor: 'black',
     borderBottomWidth: StyleSheet.hairlineWidth, 
     backgroundColor: 'white',
     height: 40,
-    paddingLeft: 10,
-    justifyContent: 'center'
+    paddingLeft: 16,
+    justifyContent: 'center',
   }
 });

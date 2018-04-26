@@ -6,6 +6,7 @@ import ServerEditor from "../screens/ServerEditor";
 import Config from "../screens/Config";
 import Tools from "../screens/Tools";
 import Settings from "../screens/Settings";
+import Thanks from "../screens/Thanks";
 
 export default AppNavigator = Actions.create(
   <Tabs key="root">
@@ -15,6 +16,9 @@ export default AppNavigator = Actions.create(
     </Stack>
     <Scene key="config" title="Config" component={Config} />
     <Scene key="tools" title="Tools" component={Tools} />
-    <Scene key="setting" title="Setting" component={Settings} />
+    <Stack key="setting" title="Settings">
+      <Scene key="setting" title="Settings" component={Settings} />
+      <Scene initial key="thanks" title="Thanks" component={Thanks} />
+    </Stack>
   </Tabs> 
 );

@@ -1,17 +1,17 @@
 {
   "files.exclude": {
-    ".expo": true,
-    ".vscode": true,
-    "node_modules": true,
-    ".babelrc": true,
-    ".editorconfig": true,
-    ".flowconfig": true,
-    ".gitignore": true,
-    ".watchmanconfig": true,
-    "app.json": true,
-    "App.test.js": true,
-    "package.json": true,
-    "README.md": true,
-    "yarn.lock": true
+    ".expo": false,
+    ".vscode": false,
+    "node_modules": false,
+    ".babelrc": false,
+    ".editorconfig": false,
+    ".flowconfig": false,
+    ".gitignore": false,
+    ".watchmanconfig": false,
+    "app.json": false,
+    "App.test.js": false,
+    "package.json": false,
+    "README.md": false,
+    "yarn.lock": false
   },
 }

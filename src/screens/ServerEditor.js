@@ -1,12 +1,28 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, ScrollView, Text, Button } from "react-native";
+import { Actions } from "react-native-router-flux";
 
 export default class ServerEditor extends React.Component {
+  static navigationOptions = ({navigation}) => {
+    return {
+      headerTitle: "Add Server",
+      headerRight: <Button title="add2" onPress={() => Actions.pop()} />,
+    }
+  }
+
   render() {
     return (
-      <View>
-        <Text>ServerEditor</Text>
-      </View>
+      <ScrollView>
+        <View>
+          <Text>ServerEditor</Text>
+        </View>
+        <View>
+          <Text>ServerEditor</Text>
+        </View>
+        <View>
+          <Text>ServerEditor</Text>
+        </View>
+      </ScrollView>
     );
   }
 }
