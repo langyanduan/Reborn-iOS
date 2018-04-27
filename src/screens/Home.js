@@ -3,6 +3,8 @@ import { View, Text, Button, TouchableOpacity, FlatList, StyleSheet } from "reac
 import { Actions } from "react-native-router-flux";
 import { Icon, Switch } from "native-base";
 
+import ListItem from "../components/ListItem";
+
 export default class Home extends React.Component {
   static navigationOptions = ({navigation}) => {
     return {
@@ -39,27 +41,9 @@ export default class Home extends React.Component {
     return (
       <View style={headerStyles.container}>
         <View style={headerStyles.content}>
-          <View style={headerStyles.cellRow}>
-            <Icon name="ios-add" style={headerStyles.cellIcon} />
-            <View style={[headerStyles.cellSeparator, headerStyles.cellContent, {justifyContent: 'space-between'}]}>
-              <Text>Not Connect</Text>
-              <Switch style={{marginRight: 8}} />
-            </View>
-          </View>
-          <View style={headerStyles.cellRow}>
-            <Icon name="ios-add" style={headerStyles.cellIcon} />
-            <View style={[headerStyles.cellSeparator, headerStyles.cellContent, {justifyContent: 'flex-end'}]}>
-              <Text  style={{position: 'absolute', left: 0}} >Routing Rules</Text>
-              <Text>default</Text>
-              <Icon name="ios-arrow-dropright" style={{marginHorizontal: 8}} />
-            </View>
-          </View>
-          <View style={headerStyles.cellRow}>
-            <Icon name="ios-add" style={headerStyles.cellIcon} />
-            <View style={headerStyles.cellContent}>
-              <Text>PING test</Text>
-            </View>
-          </View>
+          <ListItem iconName="ios-add" title="Not Contect" rightView={<Switch />} hasSeparator />
+          <ListItem iconName="ios-add" title="Routing Rules" subtitle="default" onPress={() => {}} hasArrow hasSeparator />
+          <ListItem iconName="ios-add" title="PING test" onPress={() => {}} />
         </View>
 
         <View style={headerStyles.title}>
@@ -72,18 +56,24 @@ export default class Home extends React.Component {
 
   renderFooter() {
     return (
-      <TouchableOpacity style={footerStyles.container} onPress={() => Actions.serverEditor()}>
-        <Text>Add Server...</Text>
-      </TouchableOpacity>
+      <ListItem 
+        title="Add Server..." 
+        hasArrow={true}
+        style={{backgroundColor: 'white', borderBottomWidth: StyleSheet.hairlineWidth, borderColor: 'black'}} 
+        onPress={() => Actions.serverEditor()} 
+      />
     );
   }
 
   renderItem({item, index}) {
     return (
-      <TouchableOpacity style={itemStyles.cellRow}>
-        <Text>{item}</Text>
-        <View style={{position: 'absolute', left: 10, bottom: 0, right: 0, height: StyleSheet.hairlineWidth, backgroundColor: 'black'}} />
-      </TouchableOpacity>
+      <ListItem 
+        title={item} 
+        style={{backgroundColor: 'white'}} 
+        hasArrow={true}
+        hasSeparator={true}
+        onPress={() => {}} 
+      />
     );
   }
 
@@ -112,27 +102,8 @@ const headerStyles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  cellRow: {
-    flexDirection: 'row',
-    height: 40,
-    alignItems: 'center',
-  },
-  cellIcon: {
-    marginLeft: 16,
-    marginRight: 14,
-  },
-  cellContent: {
-    flex: 1,
-    flexDirection: 'row',
-    alignSelf: 'stretch',
-    alignItems: 'center',
-  },
-  cellSeparator: {
-    borderColor: 'black',
-    borderBottomWidth: StyleSheet.hairlineWidth, 
-  },
   title: {
-    paddingHorizontal: 8,
+    paddingHorizontal: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -141,24 +112,3 @@ const headerStyles = StyleSheet.create({
   },
 });
 
-const itemStyles = StyleSheet.create({
-  container: {
-  },
-  cellRow: {
-    height: 40,
-    backgroundColor: 'white',
-    paddingLeft: 16,
-    justifyContent: 'center',
-  }
-});
-
-const footerStyles = StyleSheet.create({
-  container: {
-    borderColor: 'black',
-    borderBottomWidth: StyleSheet.hairlineWidth, 
-    backgroundColor: 'white',
-    height: 40,
-    paddingLeft: 16,
-    justifyContent: 'center',
-  }
-});
