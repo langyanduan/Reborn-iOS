@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, SectionList, StyleSheet } from "react-native";
+import { Icon } from "native-base";
 
 import ListItem from "../components/ListItem";
 
@@ -14,7 +15,8 @@ export default class Config extends React.Component {
       ]
     };
 
-    this.renderHeader = this.renderHeader.bind(this);
+    this.renderListHeader = this.renderListHeader.bind(this);
+    this.renderSectionHeader = this.renderSectionHeader.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.onPressRestoreDefault = this.onPressRestoreDefault.bind(this);
     this.onPressImportCloud = this.onPressImportCloud.bind(this);
@@ -27,13 +29,21 @@ export default class Config extends React.Component {
   onPressWifiUpload() {}
   onPressTestRule() {}
 
-  renderHeader() {
+  renderListHeader() {
     return (
-      <View style={styles.header}>
+      <View style={styles.listHeader}>
         <ListItem iconName="ios-add" title="Restore Default Config" onPress={this.onPressRestoreDefault} hasSeparator hasArrow />
         <ListItem iconName="ios-add" title="Import From Cloud..." onPress={this.onPressImportCloud} hasSeparator hasArrow />
         <ListItem iconName="ios-add" title="WiFi Upload" onPress={this.onPressWifiUpload} hasSeparator hasArrow />
         <ListItem iconName="ios-add" title="Test Rule" onPress={this.onPressTestRule} hasArrow />
+      </View>
+    );
+  }
+
+  renderSectionHeader() {
+    return (
+      <View style={styles.sectionHeader}>
+        <Text>Header</Text>
       </View>
     );
   }
@@ -43,7 +53,13 @@ export default class Config extends React.Component {
     const row = info.index;
     const item = info.item;
     return (
-      <View style={{height: 20, borderColor: 'black', borderWidth: 1}}></View>
+      <ListItem 
+        style={{backgroundColor: 'white'}}
+        iconName="ios-add"
+        title="Add Config..."
+        onPress={() => {}}
+        hasArrow
+      />
     );
   }
 
@@ -54,8 +70,10 @@ export default class Config extends React.Component {
     });
     return (
       <SectionList
-        ListHeaderComponent={this.renderHeader}
+        ListHeaderComponent={this.renderListHeader}
+        SectionSeparatorComponent={() => <View style={{backgroundColor: 'black', height: StyleSheet.hairlineWidth}} />}
         contentContainerStyle={{paddingVertical: 20}}
+        renderSectionHeader={this.renderSectionHeader}
         renderItem={this.renderItem}
         sections={sections}
         keyExtractor={(item, index) => index.toString()}
@@ -65,11 +83,16 @@ export default class Config extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  header: {
+  listHeader: {
     backgroundColor: 'white',
     borderColor: 'black',
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginBottom: 20,
-  }
+  },
+  sectionHeader: {
+    height: 30,
+    marginTop: 20,
+    justifyContent: 'center',
+  },
 });

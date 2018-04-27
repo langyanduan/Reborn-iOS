@@ -7,6 +7,8 @@ import Config from "../screens/Config";
 import Tools from "../screens/Tools";
 import Settings from "../screens/Settings";
 import Thanks from "../screens/Thanks";
+import About from "../screens/About";
+import Language  from "../screens/Language";
 
 export default AppNavigator = Actions.create(
   <Tabs key="root">
@@ -18,7 +20,9 @@ export default AppNavigator = Actions.create(
     <Scene key="tools" title="Tools" component={Tools} />
     <Stack key="setting" title="Settings">
       <Scene key="setting" title="Settings" component={Settings} />
-      <Scene initial key="thanks" title="Thanks" component={Thanks} />
+      <Scene key="thanks" title="Thanks" component={Thanks} />
+      <Scene key="language" title="Language" component={Language} />
+      <Scene key="about" title="About" component={About} />
     </Stack>
   </Tabs> 
 );
