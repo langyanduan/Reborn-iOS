@@ -1,41 +1,44 @@
 import React from "react";
 import { View, Text, SectionList, StyleSheet } from "react-native";
-import { Icon } from "native-base";
+import { Icon, Button } from "native-base";
+import { Actions } from "react-native-router-flux";
 
 import ListItem from "../components/ListItem";
+import { FlatList } from "react-native-gesture-handler";
 
 export default class Config extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      sections: [
-        { data: ['Default'], title: 'Local' },
-        { data: ['Add'], title: 'Remote' }
-      ]
+      items: ['default'],
+      // sections: [
+      //   { data: ['Default'], title: 'Local' },
+      //   { data: ['Add'], title: 'Remote' }
+      // ]
     };
 
     this.renderListHeader = this.renderListHeader.bind(this);
     this.renderSectionHeader = this.renderSectionHeader.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.onPressRestoreDefault = this.onPressRestoreDefault.bind(this);
-    this.onPressImportCloud = this.onPressImportCloud.bind(this);
+    this.onPressImportiCloud = this.onPressImportiCloud.bind(this);
     this.onPressWifiUpload = this.onPressWifiUpload.bind(this);
-    this.onPressTestRule = this.onPressTestRule.bind(this);
+    this.onPressDownloadURL = this.onPressDownloadURL.bind(this);
   }
 
   onPressRestoreDefault() {}
-  onPressImportCloud() {}
+  onPressImportiCloud() {}
   onPressWifiUpload() {}
-  onPressTestRule() {}
+  onPressDownloadURL() {}
 
   renderListHeader() {
     return (
       <View style={styles.listHeader}>
         <ListItem iconName="ios-add" title="Restore Default Config" onPress={this.onPressRestoreDefault} hasSeparator hasArrow />
-        <ListItem iconName="ios-add" title="Import From Cloud..." onPress={this.onPressImportCloud} hasSeparator hasArrow />
-        <ListItem iconName="ios-add" title="WiFi Upload" onPress={this.onPressWifiUpload} hasSeparator hasArrow />
-        <ListItem iconName="ios-add" title="Test Rule" onPress={this.onPressTestRule} hasArrow />
+        <ListItem iconName="ios-add" title="Import From iCloud" onPress={this.onPressImportiCloud} hasSeparator hasArrow />
+        <ListItem iconName="ios-add" title="Download From URL" onPress={this.onPressDownloadURL} hasSeparator hasArrow />
+        <ListItem iconName="ios-add" title="WiFi Upload" onPress={this.onPressWifiUpload} hasArrow />
       </View>
     );
   }
@@ -49,25 +52,21 @@ export default class Config extends React.Component {
   }
 
   renderItem(info) {
-    const section = info.section.sectionIndex;
     const row = info.index;
     const item = info.item;
     return (
       <ListItem 
         style={{backgroundColor: 'white'}}
         iconName="ios-add"
-        title="Add Config..."
+        title="Default Config"
         onPress={() => {}}
-        hasArrow
+        rightView={<Button style={{width: 40, height: 40, backgroundColor: 'red'}} onPress={() => Actions.configDetail() } />}
       />
     );
   }
 
   render() {
-    const sections = this.state.sections.map((value, index) => {
-      value.sectionIndex = index;
-      return value;
-    });
+    const sections = [{data: this.state.items}]
     return (
       <SectionList
         ListHeaderComponent={this.renderListHeader}

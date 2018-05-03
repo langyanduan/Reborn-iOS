@@ -4,6 +4,7 @@ import { Actions, Scene, Stack, Tabs } from "react-native-router-flux";
 import Home from "../screens/Home";
 import ServerEditor from "../screens/ServerEditor";
 import Config from "../screens/Config";
+import ConfigDetail from "../screens/ConfigDetail";
 import Tools from "../screens/Tools";
 import Settings from "../screens/Settings";
 import Thanks from "../screens/Thanks";
@@ -16,7 +17,10 @@ export default AppNavigator = Actions.create(
       <Scene key="home" title="main" component={Home} />
       <Scene key="serverEditor" title="editor" component={ServerEditor} />
     </Stack>
-    <Scene key="config" title="Config" component={Config} />
+    <Stack key="config" title="Config">
+      <Scene key="config" title="Config" component={Config} />
+      <Scene key="configDetail" title="ConfigDetail" component={ConfigDetail} />
+    </Stack>
     <Scene key="tools" title="Tools" component={Tools} />
     <Stack key="setting" title="Settings">
       <Scene key="setting" title="Settings" component={Settings} />

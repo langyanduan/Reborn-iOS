@@ -15,7 +15,8 @@ export default class ListItem extends React.Component {
     const {title, style, subtitle, iconName, hasSeparator, hasArrow, onPress, rightView} = this.props;
 
     if (rightView) {
-      var rightElement = React.cloneElement(rightView, {style: {marginRight: marginRight}});
+      const style = [rightView.props.style, {marginRight: marginRight}];
+      var rightElement = React.cloneElement(rightView, {style: style});
     } else if (subtitle && hasArrow) {
       var rightElement = (
         <View style={{flexDirection: 'row', alignItems: 'center', marginRight: marginRight}}>

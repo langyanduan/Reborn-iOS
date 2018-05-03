@@ -1,10 +1,16 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { ScrollView, View, Text } from "react-native";
 
 export default class Tools extends React.Component {
   render() {
     return (
-      <Text>Tools</Text>
+      <ScrollView>
+        <Text>dig</Text>
+        <Text>ping</Text>
+        <Text>tcping</Text>
+        <Text>ifconfig</Text>
+        <Text>route table</Text>
+      </ScrollView>
     );
   }
 }
