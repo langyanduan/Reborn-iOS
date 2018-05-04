@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FlatList, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Icon } from "native-base";
+import ItemSeparator from "./ItemSeparator";
 
 export default class PickerList extends React.Component {
   constructor(props) {
@@ -25,11 +26,12 @@ export default class PickerList extends React.Component {
     );
   }
 
+
   render() {
     const { items } = this.props;
     return (
       <FlatList 
-        ItemSeparatorComponent={() => <View style={{height: StyleSheet.hairlineWidth, backgroundColor: 'black', marginLeft: 16}} />}
+        ItemSeparatorComponent={ItemSeparator}
         ListHeaderComponent={() => <View style={{height: StyleSheet.hairlineWidth, backgroundColor: 'black'}} />}
         ListFooterComponent={() => <View style={{height: StyleSheet.hairlineWidth, backgroundColor: 'black'}} />}
         contentContainerStyle={{paddingVertical: 20}}

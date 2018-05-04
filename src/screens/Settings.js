@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, SectionList, StyleSheet } from "react-native";
 import { Actions } from "react-native-router-flux";
 import ListItem from "../components/ListItem";
+import ItemSeparator from "../components/ItemSeparator";
 
 export default class Settings extends React.Component {
   constructor(props) {
@@ -69,8 +70,8 @@ export default class Settings extends React.Component {
     });
     return (
       <SectionList 
-        SectionSeparatorComponent={() => <View style={{backgroundColor: 'black', height: StyleSheet.hairlineWidth}} />}
-        ItemSeparatorComponent={() => <View style={{marginLeft: 16, backgroundColor: 'black', height: StyleSheet.hairlineWidth}} />}
+        SectionSeparatorComponent={() => <ItemSeparator stretch />}
+        ItemSeparatorComponent={ItemSeparator}
         sections={sections}
         renderSectionHeader={this.renderSectionHeader}
         renderItem={this.renderItem}
