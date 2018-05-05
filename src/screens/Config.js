@@ -4,7 +4,6 @@ import { Icon, Button } from "native-base";
 import { Actions } from "react-native-router-flux";
 
 import ListItem from "../components/ListItem";
-import { FlatList } from "react-native-gesture-handler";
 
 export default class Config extends React.Component {
   constructor(props) {
