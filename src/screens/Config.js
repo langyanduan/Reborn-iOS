@@ -67,13 +67,15 @@ export default class Config extends React.Component {
       return (
         <ListItem icon key={index} last={index == values.length - 1} onPress={() => {}}>
           <Left>
-            {index == 0 ? <Icon name="checkmark" style={{color: 'green'}} /> : <Icon />}
+            {index == 0 ? <Icon name="checkmark" style={{color: 'green', fontSize: 25, textAlign: 'center'}} /> : <Icon />}
           </Left>
           <Body>
             <Text>config name</Text>
           </Body>
           <Right>
-            <Icon name="arrow-forward" />
+            <Button transparent>
+              <Icon name="paper" style={{color: 'blue'}} />
+            </Button>
           </Right> 
         </ListItem>
       );

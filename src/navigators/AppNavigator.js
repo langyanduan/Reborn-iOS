@@ -1,6 +1,8 @@
 import React from "react";
 import { Actions, Scene, Stack, Tabs } from "react-native-router-flux";
 
+import TabBarItem from "../components/TabBarItem";
+
 import Home from "../screens/Home";
 import ServerEditor from "../screens/ServerEditor";
 import Config from "../screens/Config";
@@ -12,23 +14,21 @@ import Thanks from "../screens/Thanks";
 import About from "../screens/About";
 import Language  from "../screens/Language";
 
-import { Modal } from "react-native-router-flux";
-
 export default AppNavigator = Actions.create(
-  <Tabs key="root">
-    <Stack key="homeTab" title="Home" initial={true}>
+  <Tabs key="tabbar" showLabel={false}>
+    <Stack key="homeTab" icon={TabBarItem} titleName="Home" iconName="home" initial={true}>
       <Scene key="home" title="main" component={Home} />
       <Scene key="serverEditor" title="editor" component={ServerEditor} />
     </Stack>
-    <Stack key="configTab" title="Config">
+    <Stack key="configTab" icon={TabBarItem} titleName="Config" iconName="albums">
       <Scene key="config" title="Config" component={Config} />
       <Scene key="configDetail" title="ConfigDetail" component={ConfigDetail} />
     </Stack>
-    <Stack key="toolsTab" title="Tools">
+    <Stack key="toolsTab" icon={TabBarItem} titleName="Tools" iconName="build">
       {/* <Scene key="ping" title="Ping" component={Ping} /> */}
       <Scene key="tools" title="Tools" component={Tools} />
     </Stack>
-    <Stack key="settingTab" title="Settings">
+    <Stack key="settingTab" icon={TabBarItem} titleName="Settings" iconName="settings">
       <Scene key="setting" title="Settings" component={Settings} />
       <Scene key="thanks" title="Thanks" component={Thanks} />
       <Scene key="language" title="Language" component={Language} />

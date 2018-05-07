@@ -1,4 +1,5 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import { 
   Container, 
   Content, 
@@ -14,7 +15,6 @@ import {
   Button 
 } from "native-base";
 
-
 export default class Tools extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +25,26 @@ export default class Tools extends React.Component {
       <Container>
         <Content>
           <Separator bordered noTopBorder />
-          <View style={{backgroundColor: 'white'}}>
+          <View style={styles.section}>
+            <ListItem icon>
+              <Left>
+                <Icon name="bluetooth" />
+              </Left>
+              <Body>
+                <Text>routing table</Text>
+              </Body>
+            </ListItem>
+            <ListItem last icon>
+              <Left>
+                <Icon name="bluetooth" />
+              </Left>
+              <Body>
+                <Text>ifconfig</Text>
+              </Body>
+            </ListItem>
+          </View>
+          <Separator bordered noTopBorder />
+          <View style={styles.section}>
             <ListItem icon onPress={() => {}}>
               <Left>
                 <Icon name="plane" />
@@ -59,7 +78,7 @@ export default class Tools extends React.Component {
                 <Icon name="arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem icon>
+            <ListItem icon last>
               <Left>
                 <Icon name="wifi" />
               </Left>
@@ -70,22 +89,6 @@ export default class Tools extends React.Component {
                 <Icon name="arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem icon>
-              <Left>
-                <Icon name="bluetooth" />
-              </Left>
-              <Body>
-                <Text>routing table</Text>
-              </Body>
-            </ListItem>
-            <ListItem last icon>
-              <Left>
-                <Icon name="bluetooth" />
-              </Left>
-              <Body>
-                <Text>ifconfig</Text>
-              </Body>
-            </ListItem>
           </View>
           <Separator />
         </Content>
@@ -93,3 +96,9 @@ export default class Tools extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  section: {
+    backgroundColor: 'white',
+  }
+});

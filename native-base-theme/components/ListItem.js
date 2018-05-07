@@ -331,8 +331,9 @@ export default (variables = variable) => {
           justifyContent: "center"
         },
         "NativeBase.Icon": {
+          textAlign: "center",
           width: variables.iconFontSize - 5,
-          fontSize: variables.iconFontSize - 2
+          fontSize: variables.iconFontSize - 10
         },
         "NativeBase.IconNB": {
           width: variables.iconFontSize - 5,
