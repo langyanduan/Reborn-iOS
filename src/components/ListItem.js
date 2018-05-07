@@ -21,13 +21,13 @@ export default class ListItem extends React.Component {
       var rightElement = (
         <View style={{flexDirection: 'row', alignItems: 'center', marginRight: marginRight}}>
           <Text style={{margin: 8}}>{subtitle}</Text>
-          <Icon name="ios-arrow-dropright" />
+          <Icon name="arrow-forward" />
         </View>
       );
     } else if (subtitle) {
       var rightElement = <Text style={{marginRight: marginRight}}>{subtitle}</Text>;
     } else if (hasArrow) {
-      var rightElement = <Icon style={{marginRight: marginRight}} name="ios-arrow-dropright" />;
+      var rightElement = <Icon style={{marginRight: marginRight}} name="arrow-forward" />;
     }
 
     const Wrapper = onPress ? TouchableOpacity : View;

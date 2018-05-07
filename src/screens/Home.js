@@ -1,114 +1,139 @@
 import React from "react";
-import { View, Text, Button, TouchableOpacity, FlatList, StyleSheet } from "react-native";
+import { Platform } from "react-native";
+import { Left, Body, Right } from "native-base";
+import { 
+  Container, 
+  Content, 
+  ListItem, 
+  Icon, 
+  View, 
+  Text, 
+  Switch, 
+  
+  Separator, 
+  Button
+} from "native-base";
 import { Actions } from "react-native-router-flux";
-import { Icon, Switch } from "native-base";
-
-import ListItem from "../components/ListItem";
 
 export default class Home extends React.Component {
   static navigationOptions = ({navigation}) => {
+    const { onPressScanQRCode, onPressAddServer } = navigation.state.params;
     return {
-      headerLeft: <Button title="scan" onPress={() => Actions.serverEditor()} />,
-      headerRight: <Button title="add" onPress={() => Actions.serverEditor()} />,
+      headerLeft: <Button transparent><Icon name="qr-scanner" /></Button>,
+      headerRight: <Button transparent onPress={() => Actions.serverEditor()}><Icon name="add" /></Button>,
     }
   }
-  
+
   constructor(props) {
     super(props);
 
-    this.state = {
-      data: [
-        "yourserver.com:8031",
-        "yourserver.com:11111",
-        "yourserver.com:12345",
-        "yourserver.com:8031",
-        "yourserver.com:8031",
-        "yourserver.com:8031",
-        "yourserver.com:8031",
-        "yourserver.com:11111",
-        "yourserver.com:12345",
-        "yourserver.com:11111",
-        "yourserver.com:12345",
-        "yourserver.com:11111",
-        "yourserver.com:12345",
-        "yourserver.com:11111",
-        "yourserver.com:12345",
-      ]
+    this.onPressGlobalRouting = this.onPressGlobalRouting.bind(this);
+    this.onPressAddServer = this.onPressAddServer.bind(this);
+    this.onPressScanQRCode = this.onPressScanQRCode.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      onPressAddServer: this.onPressAddServer,
+      onPressScanQRCode: this.onPressScanQRCode,
+    });
+
+    console.log('aa');
+  }
+
+  onPressGlobalRouting() { }
+  onPressAddServer() {}
+  onPressScanQRCode() {}
+
+  renderServers() {
+    // const items = [ 1, 2, 3, ];
+    const items = [];
+
+    if (items.length == 0) {
+      return (
+        <ListItem last icon onPress={() => Actions.serverEditor()}>
+          <Left>
+            <Icon name="add" />
+          </Left>
+          <Body>
+            <Text>Add Server...</Text>
+          </Body>
+          <Right>
+            <Icon name="arrow-forward" />
+          </Right>
+        </ListItem>
+      );
     }
-  }
 
-  renderHeader() {
-    return (
-      <View style={headerStyles.container}>
-        <View style={headerStyles.content}>
-          <ListItem iconName="ios-add" title="Not Contect" rightView={<Switch />} hasSeparator />
-          <ListItem iconName="ios-add" title="Routing Rules" subtitle="default" onPress={() => {}} hasArrow hasSeparator />
-          <ListItem iconName="ios-add" title="PING test" onPress={() => {}} />
-        </View>
-
-        <View style={headerStyles.title}>
-          <Text>CHOOSE A SERVER</Text>
-          <Text>a</Text>
-        </View>
-      </View>
-    );
-  }
-
-  renderFooter() {
-    return (
-      <ListItem 
-        title="Add Server..." 
-        hasArrow={true}
-        style={{backgroundColor: 'white', borderBottomWidth: StyleSheet.hairlineWidth, borderColor: 'black'}} 
-        onPress={() => Actions.serverEditor()} 
-      />
-    );
-  }
-
-  renderItem({item, index}) {
-    return (
-      <ListItem 
-        title={item} 
-        style={{backgroundColor: 'white'}} 
-        hasArrow={true}
-        hasSeparator={true}
-        onPress={() => {}} 
-      />
-    );
+    return items.map((value, index, values) => {
+      return (
+        <ListItem key={value} last={index == values.length - 1} icon>
+          <Left>
+            <Button style={{ backgroundColor: "#007AFF" }}>
+              <Icon name="bluetooth" />
+            </Button>
+          </Left>
+          <Body>
+            <Text>Bluetooth</Text>
+          </Body>
+          <Right>
+            <Text>On</Text>
+            {Platform.OS === "ios" && <Icon name="arrow-forward" />}
+          </Right>
+        </ListItem>
+      );
+    });
   }
 
   render() {
     return (
-      <FlatList 
-        contentContainerStyle={{paddingTop: 30, paddingBottom: 30}}
-        ListHeaderComponent={this.renderHeader}
-        ListFooterComponent={this.renderFooter}
-        data={this.state.data}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={this.renderItem}
-      />
+      <Container>
+        <Content>
+          <Separator bordered noTopBorder />
+          <View style={{backgroundColor: 'white'}}>
+            <ListItem icon>
+              <Left>
+                <Icon name="globe" />
+              </Left>
+              <Body>
+                <Text>Not Connected</Text>
+              </Body>
+              <Right>
+                <Switch value={false} onTintColor="#50B948" />
+              </Right>
+            </ListItem>
+            <ListItem icon onPress={this.onPressGlobalRouting}>
+              <Left>
+                <Icon name="pulse" />
+              </Left>
+              <Body>
+                <Text>Global Routing</Text>
+              </Body>
+              <Right>
+                <Text>Config</Text>
+                <Icon name="arrow-forward" />
+              </Right>
+            </ListItem>
+            <ListItem last icon onPress={() => {}}>
+              <Left>
+                <Icon name="speedometer" />
+              </Left>
+              <Body>
+                <Text>Ping Test</Text>
+              </Body>
+            </ListItem>
+
+          </View>
+          <Separator />
+          <Separator bordered noTopBorder>
+            <Text>CHOOSE A SERVER</Text>
+          </Separator>
+          <View style={{backgroundColor: 'white'}}>
+            {this.renderServers()}
+          </View>
+          <Separator />
+        </Content>
+      </Container>
     );
   }
 }
-
-const headerStyles = StyleSheet.create({
-  container: {
-    borderColor: 'black',
-    borderBottomWidth: StyleSheet.hairlineWidth, 
-  },
-  content: {
-    backgroundColor: 'white',
-    borderColor: 'black',
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  title: {
-    paddingHorizontal: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 30,
-    height: 30,
-  },
-});
-

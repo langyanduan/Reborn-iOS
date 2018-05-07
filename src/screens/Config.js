@@ -1,11 +1,28 @@
 import React from "react";
-import { View, Text, SectionList, StyleSheet } from "react-native";
-import { Icon, Button } from "native-base";
+import { StyleSheet } from "react-native";
+import { 
+  Container, 
+  Content, 
+  Separator,
+  ListItem,
+  View,
+  Text,
+  Left,
+  Body,
+  Right,
+  Icon, 
+  Button, 
+} from "native-base";
 import { Actions } from "react-native-router-flux";
 
-import ListItem from "../components/ListItem";
-
 export default class Config extends React.Component {
+  static navigationOptions = ({navigation}) => {
+    const { onPressScanQRCode, onPressAddServer } = navigation.state.params;
+    return {
+      headerRight: <Button transparent onPress={() => Actions.configDetail()}><Icon name="add" /></Button>,
+    }
+  }
+
   constructor(props) {
     super(props);
 
@@ -17,9 +34,6 @@ export default class Config extends React.Component {
       // ]
     };
 
-    this.renderListHeader = this.renderListHeader.bind(this);
-    this.renderSectionHeader = this.renderSectionHeader.bind(this);
-    this.renderItem = this.renderItem.bind(this);
     this.onPressRestoreDefault = this.onPressRestoreDefault.bind(this);
     this.onPressImportiCloud = this.onPressImportiCloud.bind(this);
     this.onPressWifiUpload = this.onPressWifiUpload.bind(this);
@@ -31,66 +45,108 @@ export default class Config extends React.Component {
   onPressWifiUpload() {}
   onPressDownloadURL() {}
 
-  renderListHeader() {
-    return (
-      <View style={styles.listHeader}>
-        <ListItem iconName="ios-add" title="Restore Default Config" onPress={this.onPressRestoreDefault} hasSeparator hasArrow />
-        <ListItem iconName="ios-add" title="Import From iCloud" onPress={this.onPressImportiCloud} hasSeparator hasArrow />
-        <ListItem iconName="ios-add" title="Download From URL" onPress={this.onPressDownloadURL} hasSeparator hasArrow />
-        <ListItem iconName="ios-add" title="WiFi Upload" onPress={this.onPressWifiUpload} hasArrow />
-      </View>
-    );
-  }
+  renderFiles() {
+    const items = [ 1, 2, 3 ];
+    if (items.length == 0) {
+      return (
+        <ListItem icon last onPress={() => Actions.configDetail()}>
+          <Left>
+            <Icon name="add" />
+          </Left>
+          <Body>
+            <Text>Add Configuration</Text>
+          </Body>
+          <Right>
+            <Icon name="arrow-forward" />
+          </Right>
+        </ListItem>
+      );
+    }
 
-  renderSectionHeader() {
-    return (
-      <View style={styles.sectionHeader}>
-        <Text>Header</Text>
-      </View>
-    );
-  }
-
-  renderItem(info) {
-    const row = info.index;
-    const item = info.item;
-    return (
-      <ListItem 
-        style={{backgroundColor: 'white'}}
-        iconName="ios-add"
-        title="Default Config"
-        onPress={() => {}}
-        rightView={<Button style={{width: 40, height: 40, backgroundColor: 'red'}} onPress={() => Actions.configDetail() } />}
-      />
-    );
+    return items.map((value, index, values) => {
+      return (
+        <ListItem icon key={index} last={index == values.length - 1} onPress={() => {}}>
+          <Left>
+            {index == 0 ? <Icon name="checkmark" style={{color: 'green'}} /> : <Icon />}
+          </Left>
+          <Body>
+            <Text>config name</Text>
+          </Body>
+          <Right>
+            <Icon name="arrow-forward" />
+          </Right> 
+        </ListItem>
+      );
+    });
   }
 
   render() {
-    const sections = [{data: this.state.items}]
     return (
-      <SectionList
-        ListHeaderComponent={this.renderListHeader}
-        SectionSeparatorComponent={() => <View style={{backgroundColor: 'black', height: StyleSheet.hairlineWidth}} />}
-        contentContainerStyle={{paddingVertical: 20}}
-        renderSectionHeader={this.renderSectionHeader}
-        renderItem={this.renderItem}
-        sections={sections}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      <Container>
+        <Content>
+          <Separator bordered noTopBorder />
+          <View style={styles.section}>
+            <ListItem icon onPress={this.onPressRestoreDefault}>
+              <Left>
+                <Icon name="undo" />
+              </Left>
+              <Body>
+                <Text>Restore Default Config</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </ListItem>
+            <ListItem icon onPress={this.onPressImportiCloud}>
+              <Left>
+                <Icon name="cloud" />
+              </Left>
+              <Body>
+                <Text>Import From iCloud</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </ListItem>
+            <ListItem icon onPress={this.onPressDownloadURL}>
+              <Left>
+                <Icon name="download" />
+              </Left>
+              <Body>
+                <Text>Download From URL</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </ListItem>
+            <ListItem icon last onPress={this.onPressWifiUpload}>
+              <Left>
+                <Icon name="wifi" />
+              </Left>
+              <Body>
+                <Text>WiFi Upload</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </ListItem>
+          </View>
+          <Separator />
+          <Separator bordered noTopBorder>
+            <Text>LOCAL FILES</Text>
+          </Separator>
+          <View style={styles.section}>
+            {this.renderFiles()}
+          </View>
+          <Separator />
+        </Content>
+      </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  listHeader: {
-    backgroundColor: 'white',
-    borderColor: 'black',
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 20,
-  },
-  sectionHeader: {
-    height: 30,
-    marginTop: 20,
-    justifyContent: 'center',
-  },
+  section: {
+    backgroundColor: 'white'
+  }
 });

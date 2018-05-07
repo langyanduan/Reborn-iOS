@@ -1,16 +1,17 @@
 import React from "react";
 import { View } from "react-native";
 import { Router } from "react-native-router-flux";
+import { StyleProvider } from "native-base";
+
 import AppNavigator from "./navigators/AppNavigator";
+import getTheme from '../native-base-theme/components'
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{flex: 1}}>
-        <Router
-          scenes={AppNavigator} 
-        />
-      </View>
+      <StyleProvider style={getTheme()}>
+        <Router scenes={AppNavigator} />
+      </StyleProvider>
     );
   }
 }
