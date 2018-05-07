@@ -28,7 +28,7 @@ export default class Tools extends React.Component {
           <View style={{backgroundColor: 'white'}}>
             <ListItem icon onPress={() => {}}>
               <Left>
-                <Icon active name="plane" />
+                <Icon name="plane" />
               </Left>
               <Body>
                 <Text>ping</Text>
@@ -39,40 +39,40 @@ export default class Tools extends React.Component {
             </ListItem>
             <ListItem icon>
               <Left>
-                <Icon active name="wifi" />
+                <Icon name="wifi" />
               </Left>
               <Body>
                 <Text>tcping</Text>
               </Body>
               <Right>
-                <Icon active name="arrow-forward" />
+                <Icon name="arrow-forward" />
               </Right>
             </ListItem>
             <ListItem icon>
               <Left>
-                <Icon active name="wifi" />
+                <Icon name="wifi" />
               </Left>
               <Body>
                 <Text>traceroute</Text>
               </Body>
               <Right>
-                <Icon active name="arrow-forward" />
+                <Icon name="arrow-forward" />
               </Right>
             </ListItem>
             <ListItem icon>
               <Left>
-                <Icon active name="wifi" />
+                <Icon name="wifi" />
               </Left>
               <Body>
                 <Text>dig</Text>
               </Body>
               <Right>
-                <Icon active name="arrow-forward" />
+                <Icon name="arrow-forward" />
               </Right>
             </ListItem>
             <ListItem icon>
               <Left>
-                <Icon active name="bluetooth" />
+                <Icon name="bluetooth" />
               </Left>
               <Body>
                 <Text>routing table</Text>
@@ -80,7 +80,7 @@ export default class Tools extends React.Component {
             </ListItem>
             <ListItem last icon>
               <Left>
-                <Icon active name="bluetooth" />
+                <Icon name="bluetooth" />
               </Left>
               <Body>
                 <Text>ifconfig</Text>
