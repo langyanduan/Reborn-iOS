@@ -16,8 +16,8 @@ const projects = [
 
   { "title": "react-native" },
   { "title": "prop-types" },
-  { "title": "react-native-router-flux" },
   { "title": "react-nativation" },
+  { "title": "react-native-router-flux" },
   { "title": "redux" },
   { "title": "react-redux" },
   { "title": "redux-saga" },
@@ -38,6 +38,7 @@ export default class Thanks extends React.Component {
   render() {
     return (
       <FlatList 
+        style={styles.container}
         contentContainerStyle={{paddingVertical: 10, paddingHorizontal: 8}}
         renderItem={this.renderItem}
         ItemSeparatorComponent={() => <View style={{height: 20}} />}
@@ -48,3 +49,8 @@ export default class Thanks extends React.Component {
   }
 }
 
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white'
+  }
+});

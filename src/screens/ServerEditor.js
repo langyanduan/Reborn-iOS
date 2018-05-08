@@ -1,64 +1,105 @@
 import React from "react";
-import { StyleSheet, View, ScrollView, Text, Button } from "react-native";
+import { StyleSheet } from "react-native";
 import { Actions } from "react-native-router-flux";
-
-import ListItem from "../components/ListItem";
-import ListInputItem from "../components/ListInputItem";
+import { 
+  Container,
+  Content,
+  View,
+  Text,
+  Button,
+  Icon,
+  Separator,
+  ListItem,
+  Left,
+  Body,
+  Right,
+  Switch,
+} from "native-base";
 
 export default class ServerEditor extends React.Component {
   static navigationOptions = ({navigation}) => {
     return {
       headerTitle: "Add Server",
-      headerRight: <Button title="add2" onPress={() => Actions.pop()} />,
+      headerRight: <Button transparent style={{}}><Text>Done</Text></Button>,
     }
   }
 
   render() {
     const FormShadowsocks = () => {
       return [
-        <ListInputItem title="server" />,
-        <ListInputItem title="port" />,
-        <ListItem title="方法" />,
-        <ListInputItem title="password" />,
+          <ListItem>
+            <Text>Method</Text>
+          </ListItem>,
+          <ListItem>
+            <Text>Password</Text>
+          </ListItem>,
+          <ListItem last>
+            <Left>
+              <Text>TCP Fast Open</Text>
+            </Left>
+            <Right>
+              <Switch />
+            </Right>
+          </ListItem>,
       ];
     }
 
     const FormSocks = () => {
       return [
-        <ListInputItem title="server" />,
-        <ListInputItem title="port" />,
-        <ListInputItem title="account" />,
-        <ListInputItem title="password" />,
+          <ListItem>
+            <Text>Account</Text>
+          </ListItem>,
+          <ListItem last>
+            <Text>Password</Text>
+          </ListItem>,
       ];
     }
     const FormHTTP = FormSocks;
-
-    const Form = () => FormShadowsocks().map((element, index) => React.cloneElement(element, {key: index.toString()}))
+    const Form = () => FormShadowsocks().map((value, index) => React.cloneElement(value, {key: index}));
 
     return (
-      <ScrollView contentContainerStyle={{paddingVertical: 20}}>
-        <View style={styles.section}>
-          <ListItem 
-            title="Type"
-            subtitle="Shadowsocks"
-            hasArrow
-          />
-        </View>
-        <View style={[styles.section, {marginTop: 30}]}>
-          <Form />
-        </View>
-      </ScrollView>
+      <Container>
+        <Content>
+          <Separator bordered noTopBorder />
+          <View style={styles.section}>
+            <ListItem last onPress={() => {}}>
+              <Left>
+                <Text>Type</Text>
+              </Left>
+              <Right style={styles.right}>
+                <Text style={styles.subtitle}>haha</Text>
+                <Icon name="arrow-forward" />
+              </Right>
+            </ListItem>
+          </View>
+          <Separator bordered noTopBorder />
+          <View style={styles.section}>
+            <ListItem>
+              <Text>Server</Text>
+            </ListItem>
+            <ListItem>
+              <Text>Port</Text>
+            </ListItem>
+            <Form />
+          </View>
+          <Separator />
+        </Content>
+      </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-
-  },
   section: {
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: 'black',
+    backgroundColor: 'white',
   },
+  right: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  subtitle: {
+    marginRight: 10,
+    color: '#8F8E95',
+  }
 });

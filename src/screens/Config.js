@@ -72,9 +72,9 @@ export default class Config extends React.Component {
           <Body>
             <Text>config name</Text>
           </Body>
-          <Right>
-            <Button transparent>
-              <Icon name="paper" style={{color: 'blue'}} />
+          <Right style={{paddingRight: 0}}>
+            <Button transparent onPress={() => Actions.configDetail()}>
+              <Icon name="information-circle" />
             </Button>
           </Right> 
         </ListItem>

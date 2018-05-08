@@ -46,8 +46,8 @@ export default class Home extends React.Component {
   onPressScanQRCode() {}
 
   renderServers() {
-    // const items = [ 1, 2, 3, ];
-    const items = [];
+    const items = [ 1, 2, 3, ];
+    // const items = [];
 
     if (items.length == 0) {
       return (
@@ -69,16 +69,15 @@ export default class Home extends React.Component {
       return (
         <ListItem key={value} last={index == values.length - 1} icon>
           <Left>
-            <Button style={{ backgroundColor: "#007AFF" }}>
-              <Icon name="bluetooth" />
-            </Button>
+            <Icon name="checkmark" />
           </Left>
           <Body>
-            <Text>Bluetooth</Text>
+            <Text>yourserver.com:8080</Text>
           </Body>
-          <Right>
-            <Text>On</Text>
-            {Platform.OS === "ios" && <Icon name="arrow-forward" />}
+          <Right style={{paddingRight: 0}}>
+            <Button transparent>
+              <Icon name="information-circle" />
+            </Button>
           </Right>
         </ListItem>
       );
