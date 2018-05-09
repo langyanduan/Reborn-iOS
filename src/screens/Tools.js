@@ -26,40 +26,34 @@ export default class Tools extends React.Component {
         <Content>
           <Separator bordered noTopBorder />
           <View style={styles.section}>
-            <ListItem icon>
-              <Left>
-                <Icon name="bluetooth" />
-              </Left>
+            <ListItem>
               <Body>
-                <Text>routing table</Text>
+                <Text>Routing Table</Text>
               </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
             </ListItem>
-            <ListItem last icon>
-              <Left>
-                <Icon name="bluetooth" />
-              </Left>
+            <ListItem last>
               <Body>
-                <Text>ifconfig</Text>
+                <Text>Interface Table</Text>
               </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
             </ListItem>
           </View>
           <Separator bordered noTopBorder />
           <View style={styles.section}>
-            <ListItem icon onPress={() => {}}>
-              <Left>
-                <Icon name="plane" />
-              </Left>
+            <ListItem onPress={() => {}}>
               <Body>
                 <Text>ping</Text>
               </Body>
               <Right>
-                <Switch value={false} onTintColor="#50B948" />
+                <Icon name="arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem icon>
-              <Left>
-                <Icon name="wifi" />
-              </Left>
+            <ListItem>
               <Body>
                 <Text>tcping</Text>
               </Body>
@@ -67,10 +61,7 @@ export default class Tools extends React.Component {
                 <Icon name="arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem icon>
-              <Left>
-                <Icon name="wifi" />
-              </Left>
+            <ListItem>
               <Body>
                 <Text>traceroute</Text>
               </Body>
@@ -78,10 +69,7 @@ export default class Tools extends React.Component {
                 <Icon name="arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem icon last>
-              <Left>
-                <Icon name="wifi" />
-              </Left>
+            <ListItem last>
               <Body>
                 <Text>dig</Text>
               </Body>
