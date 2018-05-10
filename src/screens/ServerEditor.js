@@ -102,7 +102,7 @@ export default class ServerEditor extends React.Component {
         <Content>
           <Separator bordered noTopBorder />
           <View style={styles.section}>
-            <ListItem last onPress={() => {}}>
+            <ListItem last onPress={() => {Actions.picker()}}>
               <Left>
                 <Text>Type</Text>
               </Left>

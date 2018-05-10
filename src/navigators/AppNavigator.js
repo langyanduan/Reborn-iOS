@@ -14,11 +14,14 @@ import Thanks from "../screens/Thanks";
 import About from "../screens/About";
 import Language  from "../screens/Language";
 
+import Picker from "../components/Picker";
+
 export default AppNavigator = Actions.create(
   <Tabs key="tabbar" showLabel={false} lazy>
     <Stack key="homeTab" icon={TabBarItem} titleName="Home" iconName="home" initial={true}>
       <Scene key="home" title="Home" component={Home} />
       <Scene key="serverEditor" title="Editor" component={ServerEditor} />
+      <Scene key="picker" title="Picker" component={Picker} />
     </Stack>
     <Stack key="configTab" icon={TabBarItem} titleName="Config" iconName="albums" lazy>
       <Scene key="config" title="Config Files" component={Config} />
