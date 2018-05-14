@@ -37,7 +37,7 @@ export default class Picker extends React.Component {
         <Body>
           <Text>{item}</Text>
         </Body>
-        {item == this.state.selected && <Right><Icon name="checkmark" style={{color: 'green'}} /></Right>}
+        {item == this.props.selected && <Right><Icon name="checkmark" style={{color: 'green'}} /></Right>}
       </ListItem>
     );
   }
@@ -49,7 +49,7 @@ export default class Picker extends React.Component {
           <Separator bordered noTopBorder />
           <List 
             style={{backgroundColor: 'white'}}
-            dataArray={this.state.items}
+            dataArray={this.props.items}
             renderRow={this.renderRow}
             />
           <Separator bordered noBottomBorder />
@@ -59,8 +59,8 @@ export default class Picker extends React.Component {
   }
 }
 
-// PickerList.propTypes = {
-//   items: PropTypes.arrayOf(PropTypes.string).isRequired,
-//   selected: PropTypes.string,
-//   onPicker: PropTypes.func.isRequired,
-// }
+PickerList.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selected: PropTypes.string,
+  onPicker: PropTypes.func.isRequired,
+}

@@ -16,8 +16,9 @@ import {
   Switch,
   Input,
 } from "native-base";
+import { connect } from "react-redux";
 
-export default class ServerEditor extends React.Component {
+class ServerEditor extends React.Component {
   static navigationOptions = ({navigation}) => {
     return {
       headerTitle: "Add Server",
@@ -43,7 +44,7 @@ export default class ServerEditor extends React.Component {
   render() {
     const FormShadowsocks = () => {
       return [
-          <ListItem key="1">
+          <ListItem key="1" onPress={() => Actions.picker()}>
             <Left>
               <Text>Method</Text>
             </Left>
@@ -168,3 +169,13 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
 });
+
+const mapStateToProps = state => {
+  return { }
+}
+
+const mapDispatchToProps = dispatch => {
+  return { }
+}
+
+export default ServerEditor = connect(mapStateToProps, mapDispatchToProps)(ServerEditor);

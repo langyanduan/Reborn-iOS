@@ -9,13 +9,13 @@ import {
   View, 
   Text, 
   Switch, 
-  
   Separator, 
   Button
 } from "native-base";
 import { Actions } from "react-native-router-flux";
+import { connect } from "react-redux";
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   static navigationOptions = ({navigation}) => {
     const { onPressScanQRCode, onPressAddServer } = navigation.state.params;
     return {
@@ -37,8 +37,6 @@ export default class Home extends React.Component {
       onPressAddServer: this.onPressAddServer,
       onPressScanQRCode: this.onPressScanQRCode,
     });
-
-    console.log('aa');
   }
 
   onPressGlobalRouting() { }
@@ -46,8 +44,7 @@ export default class Home extends React.Component {
   onPressScanQRCode() {}
 
   renderServers() {
-    const items = [ 1, 2, 3, ];
-    // const items = [];
+    const items = this.props.list;
 
     if (items.length == 0) {
       return (
@@ -66,13 +63,17 @@ export default class Home extends React.Component {
     }
 
     return items.map((value, index, values) => {
+      const { name, uuid } = value;
       return (
-        <ListItem key={value} last={index == values.length - 1} icon>
+        <ListItem key={uuid} last={index == values.length - 1} icon onPress={() => Actions.serverEditor({uuid: uuid})}>
           <Left>
-            <Icon name="checkmark" />
+            { uuid == this.props.selected ?
+              <Icon name="checkmark" style={{color: 'green', fontSize: 30}} /> :
+              <Icon />
+            }
           </Left>
           <Body>
-            <Text>yourserver.com:8080</Text>
+            <Text>{name}</Text>
           </Body>
           <Right style={{paddingRight: 0}}>
             <Button transparent>
@@ -136,3 +137,13 @@ export default class Home extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  ...state.server
+})
+
+const mapDispatchToProps = dispatch => {
+  return { }
+}
+
+export default Home = connect(mapStateToProps, mapDispatchToProps)(Home);
