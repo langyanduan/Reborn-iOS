@@ -13,27 +13,24 @@ import {
   Icon,
 } from "native-base";
 import { Actions } from "react-native-router-flux";
+import { PropTypes } from "prop-types";
 
 export default class Picker extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      items: ["1", "2", "3", "4"],
-      selected: "3"
-    }
 
     this.renderRow = this.renderRow.bind(this);
     this.onPress = this.onPress.bind(this);
   }
 
   onPress(item) {
+    this.props.onPicker(item);
     Actions.pop();
   }
 
   renderRow(item, section, row) {
     return (
-      <ListItem last={parseInt(row) == this.state.items.length - 1} onPress={() => this.onPress(item)}>
+      <ListItem last={parseInt(row) == this.props.items.length - 1} onPress={() => this.onPress(item)}>
         <Body>
           <Text>{item}</Text>
         </Body>
@@ -59,7 +56,7 @@ export default class Picker extends React.Component {
   }
 }
 
-PickerList.propTypes = {
+Picker.propTypes = {
   items: PropTypes.arrayOf(PropTypes.string).isRequired,
   selected: PropTypes.string,
   onPicker: PropTypes.func.isRequired,

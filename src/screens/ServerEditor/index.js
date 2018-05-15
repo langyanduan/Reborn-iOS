@@ -30,21 +30,42 @@ class ServerEditor extends React.Component {
     super(props);
 
     this.state = {
+      type: 'Shadowsocks',
+      server: '',
+      port: '',
+      method: 'rc4-md5',
+      account: '',
+      password: '',
       secureTextEntry: true,
-      password: ''
     }
 
     this.onPressToggleSecureTextEntry = this.onPressToggleSecureTextEntry.bind(this);
+    this.onPressDelete = this.onPressDelete.bind(this);
+    this.onPressSave = this.onPressSave.bind(this);
   }
 
   onPressToggleSecureTextEntry() {
     this.setState((preState) => ({secureTextEntry: !preState.secureTextEntry}));
   }
 
+  onPressSave() {
+    Actions.pop();
+  }
+
+  onPressDelete() {
+    Actions.pop();
+  }
+
   render() {
     const FormShadowsocks = () => {
+      const methodPicker = {
+        items: ['rc4-md5', 'chacha20-ieft'],
+        selected: this.state.method,
+        onPicker: () => {}
+      };
+      
       return [
-          <ListItem key="1" onPress={() => Actions.picker()}>
+          <ListItem key="method" onPress={() => Actions.picker(methodPicker)}>
             <Left>
               <Text>Method</Text>
             </Left>
@@ -53,7 +74,7 @@ class ServerEditor extends React.Component {
               <Icon name="arrow-forward" />
             </Right>
           </ListItem>,
-          <ListItem key="2" style={{paddingVertical: 0, height: 50, paddingRight: 0}}>
+          <ListItem key="password" style={{paddingVertical: 0, height: 50, paddingRight: 0}}>
             <Left>
               <Text style={styles.label}>Password</Text>
               <Input 
@@ -71,7 +92,7 @@ class ServerEditor extends React.Component {
               </Button>
             </Right>
           </ListItem>,
-          <ListItem key="3" last>
+          <ListItem key="TFO" last>
             <Left>
               <Text>TCP Fast Open</Text>
             </Left>
@@ -86,11 +107,19 @@ class ServerEditor extends React.Component {
       return [
           <ListItem>
             <Text style={styles.label}>Account</Text>
-            <Input style={styles.input} placeholder="Optional" />
+            <Input 
+              style={styles.input} 
+              placeholder="Optional" 
+            />
           </ListItem>,
           <ListItem last>
             <Text style={styles.label}>Password</Text>
-            <Input style={styles.input} placeholder="Optional" placeholderTextColor="#8F8E95" secureTextEntry />
+            <Input 
+              style={styles.input} 
+              placeholder="Optional" 
+              placeholderTextColor="#8F8E95" 
+              secureTextEntry 
+            />
           </ListItem>,
       ];
     }
@@ -98,12 +127,19 @@ class ServerEditor extends React.Component {
     // const Form = () => FormShadowsocks().map((value, index) => React.cloneElement(value, {key: index}));
     const Form = FormShadowsocks;
 
+
+    const typePicker = {
+      items: ['Shadowsocks', 'ShadowsocksR', 'Socks5', 'Socks5 over TLS', 'HTTP', 'HTTPS'],
+      selected: 'HTTP',
+      onPicker: () => {}
+    };
+
     return (
       <Container>
         <Content>
           <Separator bordered noTopBorder />
           <View style={styles.section}>
-            <ListItem last onPress={() => {Actions.picker()}}>
+            <ListItem last onPress={() => {Actions.picker(typePicker)}}>
               <Left>
                 <Text>Type</Text>
               </Left>
@@ -121,13 +157,20 @@ class ServerEditor extends React.Component {
                 style={styles.input} 
                 placeholder="Domain or IP Address" 
                 placeholderTextColor="#8F8E95" 
-                value={this.state.password}
-                onChangeText={(password) => this.setState({password})} 
+                value={this.state.server}
+                onChangeText={(server) => this.setState({server})} 
               />
             </ListItem>
             <ListItem>
               <Text style={styles.label}>Port</Text>
-              <Input style={styles.input} keyboardType="numeric" placeholder="1~65535" placeholderTextColor="#8F8E95" />
+              <Input 
+                style={styles.input} 
+                keyboardType="numeric" 
+                placeholder="1~65535" 
+                placeholderTextColor="#8F8E95" 
+                value={this.state.port}
+                onChangeText={(port) => this.setState({port})} 
+                />
             </ListItem>
             <Form />
           </View>
@@ -135,9 +178,11 @@ class ServerEditor extends React.Component {
           <Button block primary style={styles.button}>
             <Text>Save</Text>
           </Button>
-          <Button block danger style={styles.button}>
-            <Text>Delete</Text>
-          </Button>
+          {this.props.uuid &&
+            <Button block danger style={styles.button}>
+              <Text>Delete</Text>
+            </Button>
+          }
         </Content>
       </Container>
     );
