@@ -12,11 +12,23 @@ import {
   Body,
   Right,
   Separator,
- } from "native-base";
+} from "native-base";
+import { connect } from "react-redux";
+import { setLanguage } from "../redux/general/action";
 
-export default class Settings extends React.Component {
+class Settings extends React.Component {
   constructor(props) {
     super(props);
+
+    this.onPressLanguage = this.onPressLanguage.bind(this);
+  }
+
+  onPressLanguage() {
+    Actions.picker({
+      items: ['English', 'Chinese'],
+      selected: this.props.language,
+      onPicker: (language) => this.props.setLanguage(language),
+    });
   }
 
   render() {
@@ -27,12 +39,12 @@ export default class Settings extends React.Component {
             <Text>GENERAL</Text>
           </Separator>
           <View style={styles.section}>
-            <ListItem last onPress={() => Actions.language()}>
+            <ListItem last onPress={this.onPressLanguage}>
               <Body>
                 <Text>Language</Text>
               </Body>
               <Right style={styles.right}>
-                <Text style={styles.subtitle}>English</Text>
+                <Text style={styles.subtitle}>{this.props.language}</Text>
                 <Icon name="arrow-forward" />
               </Right>
             </ListItem>
@@ -95,9 +107,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
+    flex: 0,
   },
   subtitle: {
     marginRight: 10,
     color: '#8F8E95',
   }
 });
+
+const mapStateToProps = (state) => ({
+  language: state.general.language
+});
+const mapDispatchToProps = dispatch => ({
+  setLanguage: (language) => dispatch(setLanguage(language))
+})
+export default Settings = connect(mapStateToProps, mapDispatchToProps)(Settings);

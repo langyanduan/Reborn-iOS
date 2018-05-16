@@ -1,7 +1,7 @@
-export const ADD_CONF = 'ADD_CONF';
-export const DEL_CONF = 'DEL_CONF';
-export const MOD_CONF = 'MOD_CONF';
-export const DUP_CONF = 'DUP_CONF';
+export const ADD_CONF = 'CONFIG/ADD_CONF';
+export const DEL_CONF = 'CONFIG/DEL_CONF';
+export const MOD_CONF = 'CONFIG/MOD_CONF';
+export const DUP_CONF = 'CONFIG/DUP_CONF';
 
 export function addConfig() {
   return {
@@ -9,19 +9,19 @@ export function addConfig() {
   }
 }
 
-export function deleteConfig() {
+export function deleteConfig(uuid) {
   return {
     type: DEL_CONF,
   }
 }
 
-export function modifyConfig() {
+export function modifyConfig(uuid) {
   return {
     type: MOD_CONF,
   }
 }
 
-export function duplicateConfig() {
+export function duplicateConfig(uuid) {
   return {
     type: DUP_CONF,
   }

@@ -36,6 +36,7 @@ export default AppNavigator = Actions.create(
       <Scene key="thanks" title="Thanks" component={Thanks} />
       <Scene key="language" title="Language" component={Language} />
       <Scene key="about" title="About" component={About} />
+      <Scene key="picker" title="Picker" component={Picker} />
     </Stack>
   </Tabs> 
 );

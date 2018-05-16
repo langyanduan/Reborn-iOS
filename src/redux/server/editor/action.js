@@ -1,10 +1,10 @@
-export const SET_TYPE = 'SET_TYPE';
-export const SET_SERVER = 'SET_SERVER';
-export const SET_PORT = 'SET_PORT';
-export const SET_METHOD = 'SET_METHOD';
-export const SET_ACCOUNT = 'SET_ACCOUNT';
-export const SET_PASSWORD = 'SET_PASSWORD';
-export const SET_TCP_FAST_OPEN = 'SET_TCP_FAST_OPEN';
+export const SET_TYPE     = 'SERVER/EDITOR/SET_TYPE';
+export const SET_SERVER   = 'SERVER/EDITOR/SET_SERVER';
+export const SET_PORT     = 'SERVER/EDITOR/SET_PORT';
+export const SET_METHOD   = 'SERVER/EDITOR/SET_METHOD';
+export const SET_ACCOUNT  = 'SERVER/EDITOR/SET_ACCOUNT';
+export const SET_PASSWORD = 'SERVER/EDITOR/SET_PASSWORD';
+export const SET_TCP_FAST_OPEN = 'SERVER/EDITOR/SET_TCP_FAST_OPEN';
 
 export function setType(type) {
   return {
