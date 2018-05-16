@@ -2,6 +2,7 @@ import React from "react";
 import { Actions, Scene, Stack, Tabs } from "react-native-router-flux";
 
 import TabBarItem from "../components/TabBarItem";
+import Picker from "../components/Picker";
 
 import Home from "../screens/Home";
 import ServerEditor from "../screens/ServerEditor";
@@ -12,9 +13,6 @@ import Tools from "../screens/Tools";
 import Settings from "../screens/Settings";
 import Thanks from "../screens/Thanks";
 import About from "../screens/About";
-import Language  from "../screens/Language";
-
-import Picker from "../components/Picker";
 
 export default AppNavigator = Actions.create(
   <Tabs key="tabbar" showLabel={false} lazy>
@@ -34,7 +32,6 @@ export default AppNavigator = Actions.create(
     <Stack key="settingTab" icon={TabBarItem} titleName="Settings" iconName="settings" lazy>
       <Scene key="setting" title="Settings" component={Settings} />
       <Scene key="thanks" title="Thanks" component={Thanks} />
-      <Scene key="language" title="Language" component={Language} />
       <Scene key="about" title="About" component={About} />
       <Scene key="picker" title="Picker" component={Picker} />
     </Stack>
