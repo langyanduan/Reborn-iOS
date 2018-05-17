@@ -1,16 +1,26 @@
-import { ADD_CONF, DEL_CONF, MOD_CONF, DUP_CONF } from "./action";
+import { ADD_CONFIG, DEL_CONFIG, MOD_CONFIG, DUP_CONFIG, SET_CURRENT_CONFIG, SET_CONFIG_LIST } from "./action";
 
 const initialState = {
-  selected: null,
-  list: []
+  current: null,
+  configList: []
 };
 
 function reducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_CONF:
-    case DEL_CONF:
-    case MOD_CONF:
-    case DUP_CONF:
+    case SET_CURRENT_CONFIG:
+      return {
+        ...state,
+        current: action.uuid,
+      }
+    case SET_CONFIG_LIST:
+      return {
+        ...state,
+        configList: action.configList,
+      }
+    case ADD_CONFIG:
+    case DEL_CONFIG:
+    case MOD_CONFIG:
+    case DUP_CONFIG:
     default:
       return state;
   }

@@ -44,9 +44,7 @@ class Home extends React.Component {
   onPressScanQRCode() {}
 
   renderServers() {
-    const items = this.props.list;
-
-    if (items.length == 0) {
+    if (this.props.serverList.length == 0) {
       return (
         <ListItem last icon onPress={() => Actions.serverEditor()}>
           <Left>
@@ -62,18 +60,18 @@ class Home extends React.Component {
       );
     }
 
-    return items.map((value, index, values) => {
-      const { name, uuid } = value;
+    return this.props.serverList.map((value, index, values) => {
+      const { server, port, uuid } = value;
       return (
         <ListItem key={uuid} last={index == values.length - 1} icon onPress={() => Actions.serverEditor({uuid: uuid})}>
           <Left>
-            { uuid == this.props.selected ?
+            { uuid == this.props.current ?
               <Icon name="checkmark" style={{color: 'green', fontSize: 30}} /> :
               <Icon />
             }
           </Left>
           <Body>
-            <Text>{name}</Text>
+            <Text>{server + ':' + port}</Text>
           </Body>
           <Right style={{paddingRight: 0}}>
             <Button transparent>

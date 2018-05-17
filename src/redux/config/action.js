@@ -1,28 +1,52 @@
-export const ADD_CONF = 'CONFIG/ADD_CONF';
-export const DEL_CONF = 'CONFIG/DEL_CONF';
-export const MOD_CONF = 'CONFIG/MOD_CONF';
-export const DUP_CONF = 'CONFIG/DUP_CONF';
+export const SET_CURRENT_CONFIG = 'CONFIG/SET_CURRENT_CONFIG';
+export const SET_CONFIG_LIST = 'CONFIG/SET_CONFIG_LIST';
+export const ADD_CONFIG = 'CONFIG/ADD_CONFIG';
+export const DEL_CONFIG = 'CONFIG/DEL_CONFIG';
+export const MOD_CONFIG = 'CONFIG/MOD_CONFIG';
+export const DUP_CONFIG = 'CONFIG/DUP_CONFIG';
 
-export function addConfig() {
+
+export function setCurrentConfig(uuid) {
   return {
-    type: ADD_CONF,
+    type: SET_CURRENT_CONFIG,
+    uuid,
+  }
+}
+
+export function setConfigList(configList) {
+  return {
+    type: SET_CONFIG_LIST,
+    configList,
+  }
+}
+
+
+export function addConfig(uuid, values) {
+  return {
+    type: ADD_CONFIG,
+    uuid,
+    values,
   }
 }
 
 export function deleteConfig(uuid) {
   return {
-    type: DEL_CONF,
+    type: DEL_CONFIG,
+    uuid,
   }
 }
 
-export function modifyConfig(uuid) {
+export function modifyConfig(uuid, values) {
   return {
-    type: MOD_CONF,
+    type: MOD_CONFIG,
+    uuid,
+    values,
   }
 }
 
 export function duplicateConfig(uuid) {
   return {
-    type: DUP_CONF,
+    type: DUP_CONFIG,
+    uuid,
   }
 }

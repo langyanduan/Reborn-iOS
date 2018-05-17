@@ -17,6 +17,7 @@ import {
   Input,
 } from "native-base";
 import { connect } from "react-redux";
+import * as ServerAction from "../../redux/server/action";
 
 const TYPE_SHADOWSOCKS      = 'Shadowsocks';
 const TYPE_SHADOWSOCKSR     = 'ShadowsocksR';
@@ -79,6 +80,14 @@ class ServerEditor extends React.Component {
   }
 
   onPressSave() {
+    this.props.addServer('1234567', {
+      type: this.state.type,
+      server: this.state.server,
+      port: this.state.port,
+      method: this.state.method,
+      account: this.state.account,
+      password: this.state.password,
+    })
     Actions.pop();
   }
 
@@ -232,11 +241,11 @@ class ServerEditor extends React.Component {
             {formElement}
           </View>
           <Separator />
-          <Button block primary style={styles.button}>
+          <Button block primary style={styles.button} onPress={this.onPressSave}>
             <Text>Save</Text>
           </Button>
           {this.props.uuid &&
-            <Button block danger style={styles.button}>
+            <Button block danger style={styles.button} onPress={this.onPressDelete}>
               <Text>Delete</Text>
             </Button>
           }
@@ -277,7 +286,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return { }
+  return { 
+    addServer: (uuid, values) => dispatch(ServerAction.addServer(uuid, values))
+  }
 }
 
 export default ServerEditor = connect(mapStateToProps, mapDispatchToProps)(ServerEditor);
