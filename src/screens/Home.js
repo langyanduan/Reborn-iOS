@@ -15,6 +15,9 @@ import {
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
 
+import * as ServerActions from "../redux/server/action";
+import * as GeneralActions from "../redux/general/action";
+
 class Home extends React.Component {
   static navigationOptions = ({navigation}) => {
     const { onPressScanQRCode, onPressAddServer } = navigation.state.params;
@@ -28,20 +31,9 @@ class Home extends React.Component {
     super(props);
 
     this.onPressGlobalRouting = this.onPressGlobalRouting.bind(this);
-    this.onPressAddServer = this.onPressAddServer.bind(this);
-    this.onPressScanQRCode = this.onPressScanQRCode.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.navigation.setParams({
-      onPressAddServer: this.onPressAddServer,
-      onPressScanQRCode: this.onPressScanQRCode,
-    });
   }
 
   onPressGlobalRouting() { }
-  onPressAddServer() {}
-  onPressScanQRCode() {}
 
   renderServers() {
     if (this.props.serverList.length == 0) {
@@ -63,9 +55,9 @@ class Home extends React.Component {
     return this.props.serverList.map((value, index, values) => {
       const { server, port, uuid } = value;
       return (
-        <ListItem key={uuid} last={index == values.length - 1} icon onPress={() => Actions.serverEditor({uuid: uuid})}>
+        <ListItem key={uuid} last={index == values.length - 1} icon onPress={() => this.props.setCurrentServer(uuid)}>
           <Left>
-            { uuid == this.props.current ?
+            { uuid == this.props.currentServer ?
               <Icon name="checkmark" style={{color: 'green', fontSize: 30}} /> :
               <Icon />
             }
@@ -74,7 +66,7 @@ class Home extends React.Component {
             <Text>{server + ':' + port}</Text>
           </Body>
           <Right style={{paddingRight: 0}}>
-            <Button transparent>
+            <Button transparent onPress={() => Actions.serverEditor({uuid: uuid})}>
               <Icon name="information-circle" />
             </Button>
           </Right>
@@ -137,11 +129,17 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.server
+  serverList: state.server.serverList,
+  currentServer: state.general.currentServer,
 })
 
 const mapDispatchToProps = dispatch => {
-  return { }
+  dispatch(GeneralActions.loadGeneral());
+  dispatch(ServerActions.loadServerList());
+  
+  return { 
+    setCurrentServer: (uuid) => dispatch(GeneralActions.setCurrentServerRequest(uuid)),
+  }
 }
 
 export default Home = connect(mapStateToProps, mapDispatchToProps)(Home);

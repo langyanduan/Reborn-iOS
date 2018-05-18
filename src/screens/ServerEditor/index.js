@@ -17,7 +17,7 @@ import {
   Input,
 } from "native-base";
 import { connect } from "react-redux";
-import * as ServerAction from "../../redux/server/action";
+import * as ServerActions from "../../redux/server/action";
 
 const TYPE_SHADOWSOCKS      = 'Shadowsocks';
 const TYPE_SHADOWSOCKSR     = 'ShadowsocksR';
@@ -59,7 +59,7 @@ class ServerEditor extends React.Component {
     super(props);
 
     this.state = {
-      type: TYPE_SHADOWSOCKS,
+      serverType: TYPE_SHADOWSOCKS,
       server: '',
       port: '',
       method: METHOD_RC4_MD5,
@@ -80,26 +80,27 @@ class ServerEditor extends React.Component {
   }
 
   onPressSave() {
-    this.props.addServer('1234567', {
-      type: this.state.type,
+    this.props.updateServer(this.props.uuid, {
+      serverType: this.state.serverType,
       server: this.state.server,
       port: this.state.port,
       method: this.state.method,
       account: this.state.account,
       password: this.state.password,
-    })
+    });
     Actions.pop();
   }
 
   onPressDelete() {
+    this.props.deleteServer(this.props.uuid);
     Actions.pop();
   }
 
   onPressServerType() {
     Actions.picker({
       items: [ TYPE_SHADOWSOCKS, TYPE_SHADOWSOCKSR, TYPE_HTTP, TYPE_HTTPS, TYPE_SOCKS5, TYPE_SOCKS5_OVER_TLS ],
-      selected: this.state.type,
-      onPicker: (type) => this.setState({type})
+      selected: this.state.serverType,
+      onPicker: (serverType) => this.setState({serverType})
     });
   }
 
@@ -186,7 +187,7 @@ class ServerEditor extends React.Component {
 
   render() {
     let formElement = null;
-    switch (this.state.type) {
+    switch (this.state.serverType) {
       case TYPE_HTTP:
       case TYPE_HTTPS:
       case TYPE_SOCKS5:
@@ -210,7 +211,7 @@ class ServerEditor extends React.Component {
                 <Text>Type</Text>
               </Left>
               <Right style={[styles.right, {flex: null}]}>
-                <Text style={styles.subtitle}>{this.state.type}</Text>
+                <Text style={styles.subtitle}>{this.state.serverType}</Text>
                 <Icon name="arrow-forward" />
               </Right>
             </ListItem>
@@ -281,13 +282,22 @@ const styles = StyleSheet.create({
   },
 });
 
+const updateServer = (uuid, values) => {
+  if (uuid) {
+    return ServerActions.modifyServer(uuid, values);
+  } else {
+    return ServerActions.addServer(values);
+  }
+}
+
 const mapStateToProps = state => {
   return { }
 }
 
 const mapDispatchToProps = dispatch => {
   return { 
-    addServer: (uuid, values) => dispatch(ServerAction.addServer(uuid, values))
+    updateServer: (uuid, values) => dispatch(updateServer(uuid, values)),
+    deleteServer: (uuid) => dispatch(ServerActions.deleteServer(uuid)),
   }
 }
 
