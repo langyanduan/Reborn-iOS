@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { Router } from "react-native-router-flux";
-import { StyleProvider } from "native-base";
+import { StyleProvider, Root } from "native-base";
 import { Provider } from "react-redux";
 
 import AppNavigator from "./navigators/AppNavigator";
@@ -14,9 +14,11 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <StyleProvider style={getTheme()}>
-          <Router scenes={AppNavigator} />
-        </StyleProvider>
+        <Root>
+          <StyleProvider style={getTheme()}>
+            <Router scenes={AppNavigator} />
+          </StyleProvider>
+        </Root>
       </Provider>
     );
   }
