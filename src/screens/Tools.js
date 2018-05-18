@@ -26,6 +26,20 @@ export default class Tools extends React.Component {
         <Content>
           <Separator bordered noTopBorder />
           <View style={styles.section}>
+            <ListItem last>
+              <Body>
+                <Text>Data Analysis</Text>
+              </Body>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </ListItem>
+          </View>
+          <Separator />
+          <Separator bordered noTopBorder>
+            <Text>NETWORK INFORMATION</Text>
+          </Separator>
+          <View style={styles.section}>
             <ListItem>
               <Body>
                 <Text>Routing Table</Text>
@@ -43,7 +57,10 @@ export default class Tools extends React.Component {
               </Right>
             </ListItem>
           </View>
-          <Separator bordered noTopBorder />
+          <Separator />
+          <Separator bordered noTopBorder>
+            <Text>NETWORK DIAGNOSIS</Text>
+          </Separator>
           <View style={styles.section}>
             <ListItem onPress={() => {}}>
               <Body>

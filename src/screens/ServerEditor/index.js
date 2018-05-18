@@ -19,6 +19,7 @@ import {
 } from "native-base";
 import { connect } from "react-redux";
 
+import * as StorePromise from "../../storage";
 import * as ServerActions from "../../redux/server/action";
 import { isValidServer } from "./verify";
 import { 
@@ -52,6 +53,14 @@ class ServerEditor extends React.Component {
       account: '',
       password: '',
       secureTextEntry: true,
+    }
+
+    if (this.props.uuid) {
+      StorePromise.fetchServerDetial(this.props.uuid).then((values) => {
+        if (values) {
+          this.setState(values);
+        }
+      });
     }
 
     this.onPressToggleSecureTextEntry = this.onPressToggleSecureTextEntry.bind(this);

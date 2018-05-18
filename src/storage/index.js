@@ -34,6 +34,14 @@ export const deleteServer = (uuid) => {
   });
 }
 
+export const fetchServerDetial = (uuid) => {
+  return new Promise((resolve, reject) => {
+    LocalStore.fetchServerDetail(uuid, (err, values) => {
+      resolve(values);
+    });
+  });
+}
+
 export const fetchConfigList = () => {
   return new Promise((resolve, reject) => {
     LocalStore.fetchConfigList((err, configList) => {

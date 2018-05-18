@@ -4,7 +4,23 @@ export const SET_CURRENT_CONFIG_REQUESTED = 'GENERAL/SET_CURRENT_CONFIG_REQUESTE
 export const SET_CURRENT_CONFIG_SUCCESSED = 'GENERAL/SET_CURRENT_CONFIG_SUCCESSED';
 export const SET_LANGUAGE_REQUESTED = 'GENERAL/SET_LANGUAGE_REQUESTED';
 export const SET_LANGUAGE_SUCCESSED = 'GENERAL/SET_LANGUAGE_SUCCESSED';
+export const SET_GLOBAL_ROUTING_REQUESTED = 'GENERAL/SET_GLOBAL_ROUTING_REQUESTED';
+export const SET_GLOBAL_ROUTING_SUCCESSED = 'GENERAL/SET_GLOBAL_ROUTING_SUCCESSED';
 export const LOAD_GENERAL = 'GENERAL/LOAD_GENERAL';
+
+export function setGlobalRoutingRequest(routing) {
+  return {
+    type: SET_GLOBAL_ROUTING_REQUESTED,
+    routing,
+  }
+}
+
+export function setGlobalRoutingSuccess(routing) {
+  return {
+    type: SET_GLOBAL_ROUTING_SUCCESSED,
+    routing,
+  }
+}
 
 export function setCurrentServerRequest(uuid) {
   return {

@@ -33,7 +33,13 @@ class Home extends React.Component {
     this.onPressGlobalRouting = this.onPressGlobalRouting.bind(this);
   }
 
-  onPressGlobalRouting() { }
+  onPressGlobalRouting() { 
+    Actions.picker({
+      items: ['Direct', 'Proxy', 'Config'],
+      selected: this.props.globalRouting,
+      onPicker: (routing) => this.props.setGlobalRouting(routing)
+    });
+  }
 
   renderServers() {
     if (this.props.serverList.length == 0) {
@@ -100,7 +106,7 @@ class Home extends React.Component {
                 <Text>Global Routing</Text>
               </Body>
               <Right>
-                <Text>Config</Text>
+                <Text>{this.props.globalRouting}</Text>
                 <Icon name="arrow-forward" />
               </Right>
             </ListItem>
@@ -131,6 +137,7 @@ class Home extends React.Component {
 const mapStateToProps = state => ({
   serverList: state.server.serverList,
   currentServer: state.general.currentServer,
+  globalRouting: state.general.globalRouting,
 })
 
 const mapDispatchToProps = dispatch => {
@@ -139,6 +146,7 @@ const mapDispatchToProps = dispatch => {
   
   return { 
     setCurrentServer: (uuid) => dispatch(GeneralActions.setCurrentServerRequest(uuid)),
+    setGlobalRouting: (routing) => dispatch(GeneralActions.setGlobalRoutingRequest(routing))
   }
 }
 
