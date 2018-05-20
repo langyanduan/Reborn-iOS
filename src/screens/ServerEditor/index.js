@@ -172,7 +172,7 @@ class ServerEditor extends React.Component {
           <Text style={styles.label}>Password</Text>
           <Input 
             style={styles.input} 
-            placeholder="required" 
+            placeholder="Optional" 
             placeholderTextColor="#8F8E95" 
             secureTextEntry={this.state.secureTextEntry} 
             value={this.state.password}
