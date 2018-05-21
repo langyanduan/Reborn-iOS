@@ -50,6 +50,37 @@ export const fetchConfigList = () => {
   });
 };
 
+export const addConfig = (values) => {
+  return new Promise((resolve, reject) => {
+    LocalStore.addConfig(values, () => {
+      resolve();
+    });
+  });
+}
+
+export const modifyConfig = (uuid, values) => {
+  return new Promise((resolve, reject) => {
+    LocalStore.modifyConfig(uuid, values, () => {
+      resolve();
+    });
+  });
+}
+
+export const deleteConfig = (uuid) => {
+  return new Promise((resolve, reject) => {
+    LocalStore.deleteConfig(uuid, () => {
+      resolve();
+    });
+  });
+}
+
+export const fetchConfigDetial = (uuid) => {
+  return new Promise((resolve, reject) => {
+    LocalStore.fetchConfigDetail(uuid, (err, values) => {
+      resolve(values);
+    });
+  });
+}
 export const getGeneral = () => {
   return new Promise((resolve, reject) => {
     LocalStore.getGeneral((err, general) => {

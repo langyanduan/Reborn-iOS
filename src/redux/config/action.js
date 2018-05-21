@@ -5,7 +5,6 @@ export const MOD_CONFIG = 'CONFIG/MOD_CONFIG';
 export const DUP_CONFIG = 'CONFIG/DUP_CONFIG';
 export const LOAD_CONFIG_LIST = 'CONFIG/LOAD_CONFIG_LIST';
 
-
 export function setConfigList(configList) {
   return {
     type: SET_CONFIG_LIST,
@@ -13,11 +12,9 @@ export function setConfigList(configList) {
   }
 }
 
-
-export function addConfig(uuid, values) {
+export function addConfig(values) {
   return {
     type: ADD_CONFIG,
-    uuid,
     values,
   }
 }

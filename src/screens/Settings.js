@@ -14,7 +14,7 @@ import {
   Separator,
 } from "native-base";
 import { connect } from "react-redux";
-import { setLanguage } from "../redux/general/action";
+import { setLanguageRequested } from "../redux/general/action";
 
 class Settings extends React.Component {
   constructor(props) {
@@ -116,9 +116,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  language: state.general.language
+  language: state.general.currentLanguage
 });
 const mapDispatchToProps = dispatch => ({
-  setLanguage: (language) => dispatch(setLanguage(language))
+  setLanguage: (language) => dispatch(setLanguageRequested(language))
 })
 export default Settings = connect(mapStateToProps, mapDispatchToProps)(Settings);

@@ -40,6 +40,26 @@ function* loadConfigListAsync() {
   yield put(ConfigActions.setConfigList(configList));
 }
 
+function* addConfigAsync(action) {
+  yield call(StorePromise.addConfig, action.values);
+  yield [
+    call(loadConfigListAsync),
+    call(loadGeneralAsync),
+  ]
+}
+
+function* modifyConfigAsync(action) {
+  yield call(StorePromise.modifyConfig, action.uuid, action.values);
+  yield call(loadConfigListAsync);
+}
+
+function* deleteConfigAsync(action) {
+  yield call(StorePromise.deleteConfig, action.uuid);
+  yield [
+    call(loadConfigListAsync),
+    call(loadGeneralAsync),
+  ]
+}
 // General 
 
 function* loadGeneralAsync() {
@@ -47,6 +67,7 @@ function* loadGeneralAsync() {
   yield put(GeneralActions.setCurrentServerSuccess(general.currentServer));
   yield put(GeneralActions.setCurrentConfigSuccess(general.currentConfig));
   yield put(GeneralActions.setGlobalRoutingSuccess(general.globalRouting));
+  yield put(GeneralActions.setLanguageSuccessed(general.currentLanguage));
 }
 
 function* setCurrentServerAsync(action) {
@@ -64,6 +85,11 @@ function* setGlobalRoutingAsync(action) {
   yield call(loadGeneralAsync);
 }
 
+function* setCurrentLanguageAsync(action) {
+  yield call(StorePromise.setGeneral, {currentLanguage: action.language});
+  yield call(loadGeneralAsync);
+}
+
 // function fetchServerDetailAsync() { }
 // function fetchConfigDetailAsync() { }
 
@@ -75,10 +101,14 @@ export default function* rootSaga() {
     takeLatest(ServerActions.DEL_SERVER, deleteServerAsync),
 
     takeLatest(ConfigActions.LOAD_CONFIG_LIST, loadConfigListAsync),
+    takeLatest(ConfigActions.ADD_CONFIG, addConfigAsync),
+    takeLatest(ConfigActions.MOD_CONFIG, modifyConfigAsync),
+    takeLatest(ConfigActions.DEL_CONFIG, deleteConfigAsync),
 
     takeLatest(GeneralActions.LOAD_GENERAL, loadGeneralAsync),
     takeLatest(GeneralActions.SET_CURRENT_SERVER_REQUESTED, setCurrentServerAsync),
     takeLatest(GeneralActions.SET_CURRENT_CONFIG_REQUESTED, setCurrentConfigAsync),
+    takeLatest(GeneralActions.SET_LANGUAGE_REQUESTED, setCurrentLanguageAsync),
     takeLatest(GeneralActions.SET_GLOBAL_ROUTING_REQUESTED, setGlobalRoutingAsync),
   ]
 }

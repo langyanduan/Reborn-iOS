@@ -8,6 +8,7 @@ import Home from "../screens/Home";
 import ServerEditor from "../screens/ServerEditor";
 import Config from "../screens/Config";
 import ConfigDetail from "../screens/ConfigDetail";
+import ConfigEditor from "../screens/ConfigEditor";
 import Ping from "../screens/Ping";
 import Tools from "../screens/Tools";
 import Settings from "../screens/Settings";
@@ -24,6 +25,7 @@ export default AppNavigator = Actions.create(
     <Stack key="configTab" icon={TabBarItem} titleName="Config" iconName="albums" lazy>
       <Scene key="config" title="Config Files" component={Config} />
       <Scene key="configDetail" title="Detail" component={ConfigDetail} />
+      <Scene key="configEditor" title="Editor" component={ConfigEditor} />
     </Stack>
     <Stack key="toolsTab" icon={TabBarItem} titleName="Tools" iconName="build" lazy>
       <Scene key="tools" title="Tools" component={Tools} />

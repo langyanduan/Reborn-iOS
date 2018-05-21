@@ -13,8 +13,8 @@ import {
   Separator,
   Image,
 } from "native-base";
+import DeviceInfo from "react-native-device-info";
 import { Actions } from "react-native-router-flux";
-
 
 export default class About extends React.Component {
   render() {
@@ -30,7 +30,7 @@ export default class About extends React.Component {
                 <Text>Version</Text>
               </Body>
               <Right>
-                <Text style={styles.version}>1.0.2(412)</Text>
+                <Text style={styles.version}>{`${DeviceInfo.getVersion()}(${DeviceInfo.getBuildNumber()})`}</Text>
               </Right>
             </ListItem>
           </View>

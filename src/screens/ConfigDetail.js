@@ -13,13 +13,74 @@ import {
   Right,
   Separator,
 } from "native-base";
+import { Actions } from "react-native-router-flux";
+import { connect } from "react-redux";
 
-export default class ConfigDetail extends React.Component {
+import * as StorePromise from "../storage";
+import * as ConfigActions from "../redux/config/action";
+
+class ConfigDetail extends React.Component {
   static navigationOptions = ({navigation}) => {
     const { onPressShare } = navigation.state.params;
     return {
       headerRight: <Button transparent><Icon name="share" /></Button>,
     }
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.onPressPreview = this.onPressPreview.bind(this);
+    this.onPressEditTextMode = this.onPressEditTextMode.bind(this);
+    this.onPressDuplicate = this.onPressDuplicate.bind(this);
+    this.onPressShare = this.onPressShare.bind(this);
+    this.onPressSave = this.onPressSave.bind(this);
+    this.onPressDelete = this.onPressDelete.bind(this);
+
+    this.state = {
+      name: '',
+      content: '',
+      externalURL: '',
+    };
+
+    if (this.props.uuid) {
+      StorePromise.fetchConfigDetial(this.props.uuid).then(values => {
+        this.setState(values);
+      });
+    } else {
+      const defaultContent = '';
+      this.state = {
+        name: 'aaa',
+        content: defaultContent,
+        externalURL: ''
+      };
+    }
+  }
+
+  onPressPreview() {}
+  onPressEditTextMode() {
+    Actions.configEditor({
+      content: this.state.content,
+      uuid: this.props.uuid,
+    });
+  }
+  onPressDuplicate() {}
+  onPressShare() { }
+  onPressSave() {
+    if (this.props.uuid) {
+
+    } else {
+      this.props.addConfig({
+        name: 'ahah',
+        content: 'zzz',
+        externalURL: 'https://github.com',
+      });
+    }
+    Actions.pop();
+  }
+  onPressDelete() {
+    this.props.deleteConfig(this.props.uuid);
+    Actions.pop();
   }
 
   render() {
@@ -33,11 +94,14 @@ export default class ConfigDetail extends React.Component {
                 <Text>Name</Text>
               </Left>
             </ListItem>
-            <ListItem>
-              <Body>
-                <Text>source: https://github.com/a/b/</Text>
+            <ListItem style={{height: 50}}>
+              <Left style={{flex: null}}>
+                <Text>Source:</Text>
+              </Left>
+              <Body style={{flex: 1}}>
+                <Text>https://github.com/a/b/asdfasflskajfklajsfjklsj</Text>
               </Body>
-              <Right>
+              <Right style={{flex: null}}>
                 <Button small bordered>
                   <Text>Update</Text>
                 </Button>
@@ -45,9 +109,9 @@ export default class ConfigDetail extends React.Component {
             </ListItem>
             <ListItem last>
               <View>
-                <Text>create time: 2017/03/14 12:02:34</Text>
-                <Text>last modify time: 2017/04/14 14:42:16</Text>
-                <Text>status: in used</Text> 
+                <Text>Create time: 2017/03/14 12:02:34</Text>
+                <Text>Modify time: 2017/04/14 14:42:16</Text>
+                <Text>Status: in used</Text> 
               </View>
             </ListItem>
           </View>
@@ -79,63 +143,40 @@ export default class ConfigDetail extends React.Component {
             </ListItem>
           </View>
           <Separator />
-          <Button block danger style={{marginHorizontal: 15}}>
-            <Text>Delete</Text>
+          <Button block primary style={styles.button} onPress={this.onPressSave}>
+            <Text>Save</Text>
           </Button>
-          <Separator />
+          {this.props.uuid &&
+            <Button block danger style={styles.button} onPress={this.onPressDelete}>
+              <Text>Delete</Text>
+            </Button>
+          }
         </Content>
       </Container>
     );
   }
-  // constructor(props) {
-  //   super(props);
-
-  //   this.onPressPreview = this.onPressPreview.bind(this);
-  //   this.onPressEditTextMode = this.onPressEditTextMode.bind(this);
-  //   this.onPressDuplicate = this.onPressDuplicate.bind(this);
-  //   this.onPressShare = this.onPressShare.bind(this);
-  //   this.onPressDelete = this.onPressDelete.bind(this);
-  // }
-
-  // componentDidMount() {
-  //   this.props.navigation.setParams({onPressShare: this.onPressShare})
-  // }
-
-  // onPressPreview() {}
-  // onPressEditTextMode() {}
-  // onPressDuplicate() {}
-  // onPressShare() { }
-  // onPressDelete() {}
-
-  // render() {
-  //   return (
-  //     <ScrollView contentContainerStyle={{paddingVertical: 20}}>
-  //       <View style={styles.section}>
-  //         <ListInputItem title="Config Name" />
-  //         <View>
-  //           <Text>create time: 2017/03/14 12:02:34</Text>
-  //           <Text>last modify time: 2017/04/14 14:42:16</Text>
-  //           <Text>source: https://github.com/a/b/</Text>
-  //           <Text>status: in used</Text>
-  //         </View>
-  //       </View>
-
-  //       <View style={[styles.section, {marginTop: 30}]}>
-  //         <ListItem title="Preview in Parser" onPress={this.onPressPreview} hasSeparator hasArrow />
-  //         <ListItem title="Edit in Text Mode" onPress={this.onPressEditTextMode} hasSeparator hasArrow />
-  //         <ListItem title="Duplicate Config" onPress={this.onPressDuplicate} hasArrow />
-  //       </View>
-
-  //       <TouchableOpacity style={[styles.section, {marginTop: 30}]} onPress={this.onPressDelete}>
-  //         <Text style={styles.delete}>Delete</Text>
-  //       </TouchableOpacity>
-  //     </ScrollView>
-  //   );
-  // }
 }
 
 const styles = StyleSheet.create({
   section: {
     backgroundColor: 'white',
   },
+  button: {
+    marginHorizontal: 15,
+    marginBottom: 20,
+  },
 });
+
+const mapStateToProps = state => {
+  return {}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addConfig: (values) => dispatch(ConfigActions.addConfig(values)),
+    modifyConfig: (uuid, values) => dispatch(ConfigActions.modifyConfig(uuid, values)),
+    deleteConfig: (uuid) => dispatch(ConfigActions.deleteConfig(uuid)),
+  }
+}
+
+export default ConfigDetail = connect(mapStateToProps, mapDispatchToProps)(ConfigDetail);
