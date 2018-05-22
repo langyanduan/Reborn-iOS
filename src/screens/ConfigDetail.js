@@ -117,7 +117,7 @@ class ConfigDetail extends React.Component {
           </View>
           <Separator bordered noTopBorder />
           <View style={styles.section}>
-            <ListItem>
+            <ListItem onPress={this.onPressPreview}>
               <Body>
                 <Text>Preview</Text>
               </Body>
@@ -125,17 +125,17 @@ class ConfigDetail extends React.Component {
                 <Icon name="arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem>
+            <ListItem onPress={this.onPressEditTextMode}>
               <Body>
-                <Text>Edit in Text Mode</Text>
+                <Text>Edit</Text>
               </Body>
               <Right>
                 <Icon name="arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem last>
+            <ListItem last onPress={this.onPressDuplicate}>
               <Body>
-                <Text>Duplicate Config</Text>
+                <Text>Duplicate</Text>
               </Body>
               <Right>
                 <Icon name="arrow-forward" />
