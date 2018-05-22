@@ -6,6 +6,7 @@ import {
   View,
   Textarea,
 } from "native-base";
+import ConfigEditorView from "../components/ConfigEditorView";
 
 class ConfigEditor extends React.Component {
   constructor(props) {
@@ -19,10 +20,10 @@ class ConfigEditor extends React.Component {
   render() {
     return (
       <Container>
-        <Textarea 
+        <ConfigEditorView 
           style={styles.textArea}
-          value={this.state.value}
-          onChangeText={(value) => this.setState({content: value})}
+          // value={this.state.value}
+          // onChangeText={(value) => this.setState({content: value})}
         />
       </Container>
     );
