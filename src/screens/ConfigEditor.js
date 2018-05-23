@@ -13,8 +13,17 @@ class ConfigEditor extends React.Component {
     super(props);
 
     this.state = {
-      content: this.props.content
+      initialValue: this.props.content,
+      value: '',
     };
+
+    this.onChangeText = this.onChangeText.bind(this);
+  }
+
+  onChangeText(event) {
+    this.setState({
+      value: event.nativeEvent.value,
+    });
   }
 
   render() {
@@ -22,8 +31,8 @@ class ConfigEditor extends React.Component {
       <Container>
         <ConfigEditorView 
           style={styles.textArea}
-          // value={this.state.value}
-          // onChangeText={(value) => this.setState({content: value})}
+          value={this.state.initialValue}
+          onChangeText={this.onChangeText}
         />
       </Container>
     );
@@ -34,8 +43,6 @@ const styles = StyleSheet.create({
   textArea: {
     flex: 1,
     backgroundColor: 'white',
-    fontFamily: 'menlo',
-    fontSize: 14,
   },
 });
 

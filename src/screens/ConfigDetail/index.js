@@ -16,8 +16,9 @@ import {
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
 
-import * as StorePromise from "../storage";
-import * as ConfigActions from "../redux/config/action";
+import * as StorePromise from "../../storage";
+import * as ConfigActions from "../../redux/config/action";
+import { TemplateConfig } from "./template";
 
 class ConfigDetail extends React.Component {
   static navigationOptions = ({navigation}) => {
@@ -48,10 +49,10 @@ class ConfigDetail extends React.Component {
         this.setState(values);
       });
     } else {
-      const defaultContent = '';
+      const defaultContent = TemplateConfig;
       this.state = {
-        name: 'aaa',
-        content: defaultContent,
+        name: Date.now().toString(),
+        content: TemplateConfig,
         externalURL: ''
       };
     }
