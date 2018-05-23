@@ -12,6 +12,7 @@ import {
   Body,
   Right,
   Separator,
+  Input,
 } from "native-base";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
@@ -62,19 +63,23 @@ class ConfigDetail extends React.Component {
   onPressEditTextMode() {
     Actions.configEditor({
       content: this.state.content,
-      uuid: this.props.uuid,
+      modifyContent: (content) => this.setState({content})
     });
   }
   onPressDuplicate() {}
   onPressShare() { }
   onPressSave() {
     if (this.props.uuid) {
-
+      this.props.modifyConfig(this.props.uuid, {
+        name: this.state.name,
+        content: this.state.content,
+        externalURL: this.state.externalURL,
+      })
     } else {
       this.props.addConfig({
-        name: 'ahah',
-        content: 'zzz',
-        externalURL: 'https://github.com',
+        name: this.state.name,
+        content: this.state.content,
+        externalURL: this.state.externalURL,
       });
     }
     Actions.pop();
@@ -91,10 +96,16 @@ class ConfigDetail extends React.Component {
           <Separator bordered noTopBorder />
           <View style={styles.section}>
             <ListItem>
-              <Left>
-                <Text>Name</Text>
-              </Left>
+              <Text style={styles.label}>Name</Text>
+              <Input
+                style={styles.input}
+                placeholder="Required" 
+                placeholderTextColor="#8F8E95" 
+                value={this.state.name}
+                onChangeText={(name) => this.setState({name})} 
+              />
             </ListItem>
+            {this.state.externalURL &&
             <ListItem style={{height: 50}}>
               <Left style={{flex: null}}>
                 <Text>Source:</Text>
@@ -108,6 +119,7 @@ class ConfigDetail extends React.Component {
                 </Button>
               </Right>
             </ListItem>
+            }
             <ListItem last>
               <View>
                 <Text>Create time: 2017/03/14 12:02:34</Text>
@@ -165,6 +177,13 @@ const styles = StyleSheet.create({
   button: {
     marginHorizontal: 15,
     marginBottom: 20,
+  },
+  label: {
+    width: 100,
+  },
+  input: {
+    height: null,
+    textAlign: 'right',
   },
 });
 
