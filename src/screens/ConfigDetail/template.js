@@ -1,13 +1,13 @@
 const TemplateConfig = `\
 [GENERAL]
-loglevel = notify
+loglevel = info
 ipv6 = false
-skip-proxy = 192.168.0.0/16, 193.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.1, ::ffff:0:0:0:0/1, ::ffff:128:0:0:0/1, localhost, *.local
-bypass-system = true
+skip_proxy = 192.168.0.0/16, 193.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.1, ::ffff:0:0:0:0/1, ::ffff:128:0:0:0/1, localhost, *.local
+bypass_system = true
 
 [RULES]
 GEOIP, CN, DIRECT
-FINAIL, PROXY
+FINAL, PROXY
 
 [DNS]
 servers = system
@@ -16,9 +16,9 @@ cache_timeout = 600
 remote_server = 8.8.8.8:53
 
 [DNS-RULES]
-GROUP, IP-CIDR, dns-pollution, REMOTE
-GEOIP, CN, LOCAL
-FINAL, REMOTE
+GROUP, IP-CIDR, dns-pollution, PROXY
+GEOIP, CN, DIRECT
+FINAL, PROXY
 
 # DNS cache pollution
 # https://zh.wikipedia.org/wiki/%E5%9F%9F%E5%90%8D%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%93%E5%AD%98%E6%B1%A1%E6%9F%93

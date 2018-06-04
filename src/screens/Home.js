@@ -14,9 +14,12 @@ import {
 } from "native-base";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
+import { NativeModules, NativeEventEmitter } from "react-native";
 
 import * as ServerActions from "../redux/server/action";
 import * as GeneralActions from "../redux/general/action";
+
+const VPNManager = NativeModules.VPNManager;
 
 class Home extends React.Component {
   static navigationOptions = ({navigation}) => {
@@ -31,6 +34,28 @@ class Home extends React.Component {
     super(props);
 
     this.onPressGlobalRouting = this.onPressGlobalRouting.bind(this);
+    this.onSwitch = this.onSwitch.bind(this);
+
+    const vpnManagerEmitter = new NativeEventEmitter(VPNManager);
+    const subscription = vpnManagerEmitter.addListener('VPNStateChange', (info) => {
+      this.props.reloadGeneral();
+    });
+
+    this.subscription = subscription;
+  }
+
+  componentWillUnmount() {
+    this.subscription.remove();
+  }
+
+  onSwitch(value) {
+    if (value) {
+      VPNManager.turnOn((error) => {
+        console.log(error);
+      });
+    } else {
+      VPNManager.turnOff();
+    }
   }
 
   onPressGlobalRouting() { 
@@ -95,7 +120,7 @@ class Home extends React.Component {
                 <Text>Not Connected</Text>
               </Body>
               <Right>
-                <Switch value={false} onTintColor="#50B948" />
+                <Switch onValueChange={this.onSwitch} value={this.props.vpnOn} onTintColor="#50B948" />
               </Right>
             </ListItem>
             <ListItem icon onPress={this.onPressGlobalRouting}>
@@ -138,6 +163,7 @@ const mapStateToProps = state => ({
   serverList: state.server.serverList,
   currentServer: state.general.currentServer,
   globalRouting: state.general.globalRouting,
+  vpnOn: state.general.vpnOn,
 })
 
 const mapDispatchToProps = dispatch => {
@@ -145,6 +171,7 @@ const mapDispatchToProps = dispatch => {
   dispatch(ServerActions.loadServerList());
   
   return { 
+    reloadGeneral: () => dispatch(GeneralActions.loadGeneral()),
     setCurrentServer: (uuid) => dispatch(GeneralActions.setCurrentServerRequest(uuid)),
     setGlobalRouting: (routing) => dispatch(GeneralActions.setGlobalRoutingRequest(routing))
   }

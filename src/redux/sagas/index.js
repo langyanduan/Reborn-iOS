@@ -68,6 +68,7 @@ function* loadGeneralAsync() {
   yield put(GeneralActions.setCurrentConfigSuccess(general.currentConfig));
   yield put(GeneralActions.setGlobalRoutingSuccess(general.globalRouting));
   yield put(GeneralActions.setLanguageSuccessed(general.currentLanguage));
+  yield put(GeneralActions.setVPNState(!!general.vpnOn));
 }
 
 function* setCurrentServerAsync(action) {

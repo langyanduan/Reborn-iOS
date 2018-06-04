@@ -1,4 +1,4 @@
-import { SET_LANGUAGE_SUCCESSED, SET_CURRENT_CONFIG_SUCCESSED, SET_CURRENT_SERVER_SUCCESSED, SET_GLOBAL_ROUTING_SUCCESSED } from "./action";
+import { SET_LANGUAGE_SUCCESSED, SET_CURRENT_CONFIG_SUCCESSED, SET_CURRENT_SERVER_SUCCESSED, SET_GLOBAL_ROUTING_SUCCESSED, SET_VPN_STATE } from "./action";
 
 const initialState = {
   currentServer: '',
@@ -32,6 +32,11 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         globalRouting: action.routing,
+      }
+    case SET_VPN_STATE:
+      return {
+        ...state,
+        vpnOn: action.vpnOn,
       }
     default:
       return state;
